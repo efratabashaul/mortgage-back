@@ -9,7 +9,7 @@ namespace Repositories.Entities
     public enum Role
     {
         Admin,
-        Customer
+        Regular
     }
     public class Users
     {
