@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common.Entities;
+using Repositories.Entities;
 using Repositories.Interface;
 using Repositories.Repositories;
 using Service.Interfaces;
@@ -14,16 +15,16 @@ namespace Service.Services
     public class AuditLogsService : IService<AuditLogsDto>
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<AuditLogsDto> _repository;
+        private readonly IRepository<AuditLogs> _repository;
 
-        public AuditLogsService (IRepository<AuditLogsDto> repository, IMapper mapper)
+        public AuditLogsService (IRepository<AuditLogs> repository, IMapper mapper)
         {
             _mapper = mapper;
             _repository = repository;
         }
         public async Task<AuditLogsDto> AddAsync(AuditLogsDto entity)
         {
-            return _mapper.Map<AuditLogsDto>(await _repository.AddItemAsync(_mapper.Map <AuditLogsDto>(entity)));
+            return _mapper.Map<AuditLogsDto>(await _repository.AddItemAsync(_mapper.Map <AuditLogs>(entity)));
         }
 
         public async Task DeleteAsync(int id)
@@ -43,12 +44,12 @@ namespace Service.Services
 
         public async Task Post(AuditLogsDto item)
         {
-           await _repository.Post(_mapper.Map<AuditLogsDto>(item));
+           await _repository.Post(_mapper.Map<AuditLogs>(item));
         }
 
         public async Task UpdateAsync(int id, AuditLogsDto entity)
         {
-            await _repository.UpdateAsync(id, _mapper.Map<AuditLogsDto>(entity));
+            await _repository.UpdateAsync(id, _mapper.Map<AuditLogs>(entity));
         }
     }
 }
