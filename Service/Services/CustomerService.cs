@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common.Entities;
+using Repositories.Entities;
 using Repositories.Interface;
 using Repositories.Repositories;
 using Service.Interfaces;
@@ -14,16 +15,16 @@ namespace Service.Services
     public class CustomerService : IService<CustomersDto>
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<CustomersDto> _repository;
+        private readonly IRepository<Customers> _repository;
 
-        public CustomerService(IRepository<CustomersDto> repository, IMapper mapper)
+        public CustomerService(IRepository<Customers> repository, IMapper mapper)
         {
             _mapper = mapper;
             _repository = repository;
         }
         public async Task<CustomersDto> AddAsync(   CustomersDto entity)
         {
-            return _mapper.Map<CustomersDto>(await _repository.AddItemAsync(_mapper.Map<CustomersDto>(entity)));
+            return _mapper.Map<CustomersDto>(await _repository.AddItemAsync(_mapper.Map<Customers>(entity)));
         }
 
         public async Task DeleteAsync(int id)
@@ -43,12 +44,12 @@ namespace Service.Services
 
         public async Task Post(CustomersDto item)
         {
-            await _repository.Post(_mapper.Map<CustomersDto>(item));
+            await _repository.Post(_mapper.Map<Customers>(item));
         }
 
         public async Task UpdateAsync(int id, CustomersDto entity)
         {
-            await _repository.UpdateAsync(id, _mapper.Map<CustomersDto>(entity));
+            await _repository.UpdateAsync(id, _mapper.Map<Customers>(entity));
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Common.Entities;
+using Repositories.Entities;
 using Repositories.Interface;
+using Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +11,19 @@ using System.Threading.Tasks;
 
 namespace Service.Services
 {
-    public class CustomerTaskService
+    public class CustomerTaskService:IService<CustomerTasksDto>
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<CustomerTasksDto> _repository;
+        private readonly IRepository<CustomerTasks> _repository;
 
-        public CustomerTaskService(IRepository<CustomerTasksDto> repository, IMapper mapper)
+        public CustomerTaskService(IRepository<CustomerTasks> repository, IMapper mapper)
         {
             _mapper = mapper;
             _repository = repository;
         }
         public async Task<CustomerTasksDto> AddAsync(CustomerTasksDto entity)
         {
-            return _mapper.Map<CustomerTasksDto>(await _repository.AddItemAsync(_mapper.Map<CustomerTasksDto>(entity)));
+            return _mapper.Map<CustomerTasksDto>(await _repository.AddItemAsync(_mapper.Map<CustomerTasks>(entity)));
         }
 
         public async Task DeleteAsync(int id)
@@ -41,12 +43,12 @@ namespace Service.Services
 
         public async Task Post(CustomerTasksDto item)
         {
-            await _repository.Post(_mapper.Map<CustomerTasksDto>(item));
+            await _repository.Post(_mapper.Map<CustomerTasks>(item));
         }
 
         public async Task UpdateAsync(int id, CustomerTasksDto entity)
         {
-            await _repository.UpdateAsync(id, _mapper.Map<CustomerTasksDto>(entity));
+            await _repository.UpdateAsync(id, _mapper.Map<CustomerTasks>(entity));
         }
     }
 }

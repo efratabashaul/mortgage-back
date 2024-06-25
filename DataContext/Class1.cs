@@ -1,4 +1,4 @@
-﻿namespace Repositories
+﻿namespace DataContext
 {
     public class Class1
     {

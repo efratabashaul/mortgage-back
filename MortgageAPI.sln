@@ -4,12 +4,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MortgageAPI", "MortgageAPI\MortgageAPI.csproj", "{88CBDA17-54B4-4234-BCAA-79FA9E36FFC5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A0333137-BB8E-4D7A-AAA1-3EEEE4BA45A6} = {A0333137-BB8E-4D7A-AAA1-3EEEE4BA45A6}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{776D5474-CD0C-4CAC-B843-541C23AE5EC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{776D5474-CD0C-4CAC-B843-541C23AE5EC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{3A6B559A-07A1-41BD-8F47-A8EACC9B0C0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{3A6B559A-07A1-41BD-8F47-A8EACC9B0C0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{624CF153-D397-4D1B-A223-49AF3A2EE651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{624CF153-D397-4D1B-A223-49AF3A2EE651}"
+	ProjectSection(ProjectDependencies) = postProject
+		{776D5474-CD0C-4CAC-B843-541C23AE5EC5} = {776D5474-CD0C-4CAC-B843-541C23AE5EC5}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataContext", "DataContext\DataContext.csproj", "{A0333137-BB8E-4D7A-AAA1-3EEEE4BA45A6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{776D5474-CD0C-4CAC-B843-541C23AE5EC5} = {776D5474-CD0C-4CAC-B843-541C23AE5EC5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +44,10 @@ Global
 		{624CF153-D397-4D1B-A223-49AF3A2EE651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{624CF153-D397-4D1B-A223-49AF3A2EE651}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{624CF153-D397-4D1B-A223-49AF3A2EE651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0333137-BB8E-4D7A-AAA1-3EEEE4BA45A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0333137-BB8E-4D7A-AAA1-3EEEE4BA45A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0333137-BB8E-4D7A-AAA1-3EEEE4BA45A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0333137-BB8E-4D7A-AAA1-3EEEE4BA45A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
