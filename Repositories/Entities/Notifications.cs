@@ -15,7 +15,7 @@ namespace Repositories.Entities
         public DateTime? created_at { get; set; }
 
         [ForeignKey("CustomerId")]
-        public int Customer_id { get; set; }
+        public int CustomerId { get; set; }
 
 
     }
