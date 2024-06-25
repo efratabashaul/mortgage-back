@@ -48,7 +48,7 @@ namespace Repositories.Repositories
         public async Task UpdateAsync(int id, Notifications entity)
         {
             var notification = await GetAsync(id);
-            notification.User_id = entity.User_id;
+            notification.Customer_id = entity.Customer_id;
             notification.Message = entity.Message;
             notification.Is_read = entity.Is_read;
             notification.created_at = entity.created_at;
