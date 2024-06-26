@@ -13,7 +13,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddServices();
 builder.Services.AddDbContext<IContext, Db>();
 
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost4200",
