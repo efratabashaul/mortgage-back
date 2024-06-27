@@ -14,11 +14,11 @@ namespace Service
     {
         public MappeProfile()
         {
-            CreateMap<AuditLogsDto, AuditLogs>().ReverseMap();
             CreateMap<CustomersDto, Customers>().ReverseMap();
             CreateMap<CustomerTasksDto, CustomerTasks>().ReverseMap();
-            CreateMap<NotificationsDto, Notifications>().ReverseMap();
             CreateMap<UsersDto, Users>().ReverseMap();
+            CreateMap<LeadsDto, Leads>().ReverseMap();
+            CreateMap<DocumentTypesDto, DocumentTypes>().ReverseMap();
         }
     }
 }

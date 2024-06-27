@@ -14,8 +14,8 @@ namespace DataContext
         public DbSet<Customers> Customers { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<CustomerTasks>  CustomerTasks { get; set; }
-        public DbSet<Notifications> Notifications { get; set; }
-        public DbSet<AuditLogs> AuditLogs { get; set; }
+        public DbSet<DocumentTypes> DocumentTypes { get; set; }
+        public DbSet<Leads> Leads { get; set; }
 
         public async Task save()
         {
@@ -25,7 +25,7 @@ namespace DataContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            // optionsBuilder.UseSqlServer("Data Source=DESKTOP-TP8FO8E\\SQLEXPRESS02;Initial Catalog=commemorative_project;Integrated Security=True;TrustServerCertificate=True");
-            optionsBuilder.UseSqlServer("Data Source=localhost,1433;Initial Catalog=mortgageDatabase;Integrated Security=False;User ID=sa;Password=mirimoshe$1234;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Data Source=localhost,1433;Initial Catalog=mortgageDatabase;Integrated Security=False;User ID=sa;Password=mortgage$100;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True;");
 
         }
     }

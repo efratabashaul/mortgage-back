@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Common.Entities
 {
-    public class AuditLogsDto
+    public class LeadsDto
     {
         public int Id { get; set; }
-        public int User_id { get; set; }
-        public string Action { get; set; }
-        public string? Details { get; set; }
+        public string First_Name { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
         public DateTime? Created_at { get; set; }
-
+        public DateTime? Updated_at { get; set; }
     }
 }

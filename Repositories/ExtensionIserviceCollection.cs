@@ -14,12 +14,12 @@ namespace Repositories
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services) {
             services.AddScoped<IRepository<Users>,UsersRepository>();
-            services.AddScoped<IRepository<AuditLogs>, AudioLogsRepository>();
             services.AddScoped<IRepository<Customers>, CustomerRepository>();
             services.AddScoped<IRepository<CustomerTasks>, CustomerTaskRepository>();
-            services.AddScoped<IRepository<Notifications>, NotificationsRepository>();
+            services.AddScoped<IRepository<Leads>, LeadsRepository>();
+            services.AddScoped<IRepository<DocumentTypes>, DocumentTypesRepository>();
             return services;
-        }
+         }
      
     }
 }

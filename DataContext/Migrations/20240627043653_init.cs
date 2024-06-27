@@ -12,33 +12,35 @@ namespace DataContext.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AuditLogs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    User_id = table.Column<int>(type: "int", nullable: false),
-                    Action = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Created_at = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuditLogs", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    First_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Lead_id = table.Column<int>(type: "int", nullable: false),
                     Last_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    t_z = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    birthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Family_status = table.Column<int>(type: "int", nullable: false),
+                    Number_of_people_in_house = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Job_status = table.Column<int>(type: "int", nullable: false),
+                    Work_business_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Job_description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Avarage_monthly_salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Years_in_current_position = table.Column<int>(type: "int", nullable: false),
+                    Income_rent = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Income_Government_Endorsement = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Income_other = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Expenses_rent = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Expenses_loans = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Expenses_other = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Property_city = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Transaction_type = table.Column<int>(type: "int", nullable: false),
+                    Estimated_price_by_customer = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Estimated_price_by_sales_agreement = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Has_other_properties = table.Column<bool>(type: "bit", nullable: false),
+                    Amount_of_loan_requested = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     LastSynced = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsArchived = table.Column<bool>(type: "bit", nullable: true),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -56,13 +58,15 @@ namespace DataContext.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Customer_Id = table.Column<int>(type: "int", nullable: false),
-                    Task_description = table.Column<int>(type: "int", nullable: false),
+                    Task_description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Document_type_id = table.Column<int>(type: "int", nullable: false),
                     Document_path = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     status = table.Column<int>(type: "int", nullable: false),
                     Due_date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created_at = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Updated_at = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CustomerId = table.Column<int>(type: "int", nullable: false)
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    DocumentTypes = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,20 +74,35 @@ namespace DataContext.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notifications",
+                name: "DocumentTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    User_id = table.Column<int>(type: "int", nullable: false),
-                    Message = table.Column<int>(type: "int", nullable: false),
-                    Is_read = table.Column<bool>(type: "bit", nullable: true),
-                    created_at = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Transaction_Type = table.Column<int>(type: "int", nullable: false),
+                    Document_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Required = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                    table.PrimaryKey("PK_DocumentTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Leads",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    First_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Created_at = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Updated_at = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Leads", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,16 +128,16 @@ namespace DataContext.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AuditLogs");
-
-            migrationBuilder.DropTable(
                 name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "CustomerTasks");
 
             migrationBuilder.DropTable(
-                name: "Notifications");
+                name: "DocumentTypes");
+
+            migrationBuilder.DropTable(
+                name: "Leads");
 
             migrationBuilder.DropTable(
                 name: "Users");

@@ -1,4 +1,5 @@
 ﻿using Common.Entities;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
 
@@ -8,6 +9,7 @@ namespace MortgageAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class CustomersController : ControllerBase
     {
         private readonly IService<CustomersDto> service;
