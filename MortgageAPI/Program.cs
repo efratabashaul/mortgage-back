@@ -105,7 +105,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddServices();
 builder.Services.AddDbContext<IContext, Db>();
 
+<<<<<<< HEAD
 // Configure CORS policies
+=======
+>>>>>>> cce40433a4569358d4a4ebc97813eab6655677df
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost4200",
@@ -126,8 +129,17 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
+<<<<<<< HEAD
 // Enable CORS
 app.UseCors(policyName: "AllowLocalhost4200");
 
 app.MapControllers();
 app.Run();
+=======
+app.UseCors("AllowLocalhost4200");
+
+
+app.MapControllers();
+
+app.Run();
+>>>>>>> cce40433a4569358d4a4ebc97813eab6655677df
