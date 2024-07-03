@@ -2,6 +2,8 @@
 using Repositories.Entities;
 using Repositories.Interface;
 
+using System.Numerics;
+
 namespace Repositories.Repositories
 {
     public class CustomerRepository : IRepository<Customers>
@@ -46,7 +48,11 @@ namespace Repositories.Repositories
             var customer = await GetAsync(id);
             customer.Lead_id = entity.Lead_id;
             customer.Last_Name = entity.Last_Name;
+            customer.First_Name = entity.First_Name;
+            customer.Phone = entity.Phone;
+            customer.Email = entity.Email;
             customer.t_z = entity.t_z;
+            customer.Customer_type=entity.Customer_type;
             customer.birthDate = entity.birthDate;
             customer.Family_status = entity.Family_status;
             customer.Number_of_people_in_house = entity.Number_of_people_in_house;
@@ -68,8 +74,8 @@ namespace Repositories.Repositories
             customer.LastSynced= entity.LastSynced;
             customer.IsArchived= entity.IsArchived;
             customer.created_at = entity.created_at;
-            customer.updated_at = entity.updated_at;
-
+            customer.updated_at = DateTime.UtcNow;
+            await _context.save();
         }
     }
 }

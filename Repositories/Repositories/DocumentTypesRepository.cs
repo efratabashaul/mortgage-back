@@ -52,6 +52,7 @@ namespace Repositories.Repositories
             documentTypes.Transaction_Type=entity.Transaction_Type;
             documentTypes.Document_Name=entity.Document_Name;
             documentTypes.Required=entity.Required;
+            await _context.save();
 
         }
     }

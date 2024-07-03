@@ -54,6 +54,8 @@ namespace Repositories.Repositories
             user.Email = entity.Email;
             user.Role = entity.Role;
             user.Created_at = entity.Created_at;
+            user.Updated_at= DateTime.UtcNow;
+            await _context.save();
         }
     }
 }

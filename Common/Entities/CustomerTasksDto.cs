@@ -16,7 +16,7 @@ namespace Common.Entities
         public string? Document_path { get; set; }
         public Status status { get; set; }
         public DateTime? Due_date { get; set; }
-        public DateTime? Created_at { get; set; }
-        public DateTime? Updated_at { get; set; }
+        public DateTime? Created_at { get; set; } = DateTime.Now;
+        public DateTime? Updated_at { get; set; }=DateTime.Now;
     }
 }

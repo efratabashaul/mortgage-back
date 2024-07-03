@@ -12,7 +12,11 @@ namespace Common.Entities
         public string First_Name { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public DateTime? Created_at { get; set; }
-        public DateTime? Updated_at { get; set; }
+        public DateTime? Created_at { get; set; } = DateTime.Now;
+        public DateTime? Updated_at { get; set; }= DateTime.Now;
+        public override string ToString()
+        {
+            return "id:" + this.Id + ". name:" + this.First_Name + ". phone:" + this.Phone + ". Email:" + this.Email;
+        }
     }
 }

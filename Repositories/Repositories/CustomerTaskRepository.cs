@@ -55,7 +55,9 @@ namespace Repositories.Repositories
             customerTask.status = entity.status;
             customerTask.Due_date=entity.Due_date;
             customerTask.Created_at=entity.Created_at;
-            customerTask.Updated_at=entity.Updated_at;
+            customerTask.Updated_at= DateTime.UtcNow; ;
+            await _context.save();
+
         }
     }
 }
