@@ -18,6 +18,8 @@ namespace Repositories.Repositories
         }
         public async Task<Leads> AddItemAsync(Leads item)
         {
+            item.Created_at = DateTime.Now;
+            item.Updated_at = DateTime.Now;
             await _context.Leads.AddAsync(item);
             await _context.save();
             return item;
@@ -41,6 +43,8 @@ namespace Repositories.Repositories
 
         public async  Task Post(Leads item)
         {
+            item.Created_at=DateTime.Now;
+            item.Updated_at=DateTime.Now;
             await _context.Leads.AddAsync(item);
             Console.WriteLine(item);
             await _context.save();
@@ -54,7 +58,7 @@ namespace Repositories.Repositories
             lead.Phone = entity.Phone;
             lead.Email = entity.Email;
             lead.Created_at = entity.Created_at;
-            lead.Updated_at = entity.Updated_at;
+            lead.Updated_at = DateTime.Now;
             lead.Token = entity.Token;
             lead.Expiration = entity.Expiration;
             await _context.save();
@@ -67,7 +71,7 @@ namespace Repositories.Repositories
             lead.Phone = entity.Phone;
             lead.Email = entity.Email;
             lead.Created_at = entity.Created_at;
-            lead.Updated_at = entity.Updated_at;
+            lead.Updated_at =DateTime.Now;
             lead.Token = entity.Token;
             lead.Expiration = entity.Expiration;
             await _context.save(); // Use Task.Run to wrap the synchronous save method

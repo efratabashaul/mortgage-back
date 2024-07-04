@@ -18,6 +18,8 @@ namespace Repositories.Repositories
         }
         public async Task<CustomerTasks> AddItemAsync(CustomerTasks item)
         {
+            item.Created_at = DateTime.Now;
+            item.Updated_at = DateTime.Now;
             await _context.CustomerTasks.AddAsync(item);
             await _context.save();
             return item;
@@ -41,6 +43,8 @@ namespace Repositories.Repositories
 
         public async Task Post(CustomerTasks item)
         {
+            item.Created_at = DateTime.Now;
+            item.Updated_at = DateTime.Now;
             await _context.CustomerTasks.AddAsync(item);
             await _context.save();
         }
@@ -55,7 +59,7 @@ namespace Repositories.Repositories
             customerTask.status = entity.status;
             customerTask.Due_date=entity.Due_date;
             customerTask.Created_at=entity.Created_at;
-            customerTask.Updated_at=entity.Updated_at;
+            customerTask.Updated_at= DateTime.Now;
             await _context.save();
         }
 
@@ -69,7 +73,7 @@ namespace Repositories.Repositories
             customerTask.status = entity.status;
             customerTask.Due_date = entity.Due_date;
             customerTask.Created_at = entity.Created_at;
-            customerTask.Updated_at = entity.Updated_at;
+            customerTask.Updated_at =DateTime.Now;
             await _context.save();
             return customerTask;
         }
