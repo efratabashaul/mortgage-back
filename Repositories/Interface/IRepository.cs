@@ -15,7 +15,7 @@ namespace Repositories.Interface
         public Task UpdateAsync(int id, T entity);
         public Task Post(T item);
         public Task<T> AddItemAsync(T item);
-        
+        public Task<T> UpdateItemAsync(int id,T entity);
 
     }
 }

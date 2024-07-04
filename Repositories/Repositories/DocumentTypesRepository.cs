@@ -52,7 +52,17 @@ namespace Repositories.Repositories
             documentTypes.Transaction_Type=entity.Transaction_Type;
             documentTypes.Document_Name=entity.Document_Name;
             documentTypes.Required=entity.Required;
+            await _context.save();
+        }
 
+        public async Task<DocumentTypes> UpdateItemAsync(int id, DocumentTypes entity)
+        {
+            var documentTypes = await GetAsync(id);
+            documentTypes.Transaction_Type = entity.Transaction_Type;
+            documentTypes.Document_Name = entity.Document_Name;
+            documentTypes.Required = entity.Required;
+            await _context.save();
+            return documentTypes;
         }
     }
 }

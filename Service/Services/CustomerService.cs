@@ -51,5 +51,11 @@ namespace Service.Services
         {
             await _repository.UpdateAsync(id, _mapper.Map<Customers>(entity));
         }
+
+        public async Task<CustomersDto> UpdateItemAsync(int id, CustomersDto entity)
+        {
+            var updatedCustomer = await _repository.UpdateItemAsync(id, _mapper.Map<Customers>(entity));
+            return _mapper.Map<CustomersDto>(updatedCustomer);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Common.Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
 
@@ -27,16 +28,34 @@ namespace MortgageAPI.Controllers
         {
             return await service.GetAsync(id);
         }
+        //[HttpPost]
+        //public async Task Post([FromForm] UsersDto usersDto)
+        //{
+        //    await service.AddAsync(usersDto);
+        //}
+
+        //[HttpPost("result")]
+
         [HttpPost]
-        public async Task Post([FromForm] UsersDto usersDto)
+        public async Task<IActionResult> AddItemAsync([FromForm] UsersDto usersDto)
         {
-            await service.AddAsync(usersDto);
+            var addedObject = await service.AddAsync(usersDto);
+            return Ok(addedObject);
         }
+
+        //[HttpPut("{id}")]
+        //public async Task Put(int id,[FromForm] UsersDto usersDto)
+        //{
+        //    await service.UpdateAsync(id,usersDto);
+        //}
+
         [HttpPut("{id}")]
-        public async Task Put(int id,[FromForm] UsersDto usersDto)
+        public async Task<IActionResult> UpdateItemAsync(int id, [FromForm] UsersDto usersDto)
         {
-            await service.UpdateAsync(id,usersDto);
+            var updatedObject = await service.UpdateItemAsync(id, usersDto);
+            return Ok(updatedObject);
         }
+
         [HttpDelete("{id}")]
         public async Task DeleteAsync(int id)
         {

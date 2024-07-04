@@ -29,16 +29,33 @@ namespace MortgageAPI.Controllers
         {
             return await service.GetAsync(id);
         }
+
+        //[HttpPost]
+        //public async Task Post([FromBody] CustomersDto customersDto)
+        //{
+        //    await service.AddAsync(customersDto);
+        //}
+
         [HttpPost]
-        public async Task Post([FromBody] CustomersDto customersDto)
+        public async Task<IActionResult> AddItemAsync([FromBody] CustomersDto customersDto)
         {
-            await service.AddAsync(customersDto);
+            var addedObject = await service.AddAsync(customersDto);
+            return Ok(addedObject);
         }
+
+        //[HttpPut("{id}")]
+        //public async Task Put(int id,[FromBody] CustomersDto customersDto)
+        //{
+        //    await service.UpdateAsync(id,customersDto);
+        //}
+
         [HttpPut("{id}")]
-        public async Task Put(int id,[FromForm] CustomersDto customersDto)
+        public async Task<IActionResult> UpdateItemAsync(int id, [FromForm] CustomersDto customersDto)
         {
-            await service.UpdateAsync(id,customersDto);
+            var updatedObject = await service.UpdateItemAsync(id, customersDto);
+            return Ok(updatedObject);
         }
+
         [HttpDelete("{id}")]
         public async Task DeleteAsync(int id)
         {

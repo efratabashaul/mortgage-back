@@ -53,7 +53,23 @@ namespace Repositories.Repositories
             lead.Email = entity.Email;
             lead.Created_at = entity.Created_at;
             lead.Updated_at = entity.Updated_at;
-           
+            lead.Token = entity.Token;
+            lead.Expiration = entity.Expiration;
+            await _context.save();
+        }
+
+        public async Task<Leads> UpdateItemAsync(int id, Leads entity)
+        {
+            var lead = await GetAsync(id);
+            lead.First_Name = entity.First_Name;
+            lead.Phone = entity.Phone;
+            lead.Email = entity.Email;
+            lead.Created_at = entity.Created_at;
+            lead.Updated_at = entity.Updated_at;
+            lead.Token = entity.Token;
+            lead.Expiration = entity.Expiration;
+            await _context.save(); // Use Task.Run to wrap the synchronous save method
+            return lead;
         }
     }
 }

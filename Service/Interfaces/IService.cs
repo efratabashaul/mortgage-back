@@ -14,5 +14,6 @@ namespace Service.Interfaces
         public Task DeleteAsync(int id);
         public Task Post(T item);
         public Task<T> AddAsync(T entity);
+        public Task<T> UpdateItemAsync(int id,T entity);
     }
 }

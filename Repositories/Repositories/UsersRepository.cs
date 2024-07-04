@@ -54,7 +54,24 @@ namespace Repositories.Repositories
             user.Email = entity.Email;
             user.Role = entity.Role;
             user.Created_at = entity.Created_at;
+            await _context.save();
         }
+
+
+
+        public async Task<Users> UpdateItemAsync(int id, Users entity)
+        {
+            var user = await GetAsync(id);
+            user.UserName = entity.UserName;
+            user.Password = entity.Password;
+            user.Email = entity.Email;
+            user.Role = entity.Role;
+            user.Created_at = entity.Created_at;
+            await _context.save();// Use Task.Run to wrap the synchronous save method
+            return user;
+        }
+
+       
     }
 }
 

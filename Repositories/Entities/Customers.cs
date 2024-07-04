@@ -20,13 +20,22 @@ namespace Repositories.Entities
         Employed,
         SelfEmployed
     }
-  
+    public enum Connection
+    {
+        whatup,
+        email
+    }
+
 
     public class Customers
     {
         public int Id { get; set; }
         public int Lead_id { get; set; }
         public string Last_Name { get; set; }
+        public string First_Name { get; set; }
+        public string Email { get; set; }
+        public string Phone {  get; set; }
+        public Connection Connection { get; set; }
         public string t_z { get; set; }/*identity number*/
         public DateTime? birthDate { get; set; }
         public Family_Status Family_status { get; set; }

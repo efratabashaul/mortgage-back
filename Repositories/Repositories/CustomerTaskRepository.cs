@@ -56,6 +56,22 @@ namespace Repositories.Repositories
             customerTask.Due_date=entity.Due_date;
             customerTask.Created_at=entity.Created_at;
             customerTask.Updated_at=entity.Updated_at;
+            await _context.save();
+        }
+
+        public async Task<CustomerTasks> UpdateItemAsync(int id, CustomerTasks entity)
+        {
+            var customerTask = await GetAsync(id);
+            customerTask.Customer_Id = entity.Customer_Id;
+            customerTask.Task_description = entity.Task_description;
+            customerTask.Document_type_id = entity.Document_type_id;
+            customerTask.Document_path = entity.Document_path;
+            customerTask.status = entity.status;
+            customerTask.Due_date = entity.Due_date;
+            customerTask.Created_at = entity.Created_at;
+            customerTask.Updated_at = entity.Updated_at;
+            await _context.save();
+            return customerTask;
         }
     }
 }
