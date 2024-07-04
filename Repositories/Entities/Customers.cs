@@ -43,6 +43,7 @@ namespace Repositories.Entities
         public string? Address { get; set; }
         public Job_Status Job_status { get; set; }
         public string Work_business_name { get; set; }
+        public Customer_Type Customer_type {  get; set; }
         public string Job_description { get; set; }
         public decimal Avarage_monthly_salary { get; set; }
         public int Years_in_current_position { get; set; }
@@ -60,8 +61,8 @@ namespace Repositories.Entities
         public decimal Amount_of_loan_requested { get; set; }
         public DateTime? LastSynced { get; set; }
         public bool? IsArchived { get; set; }
-        public DateTime? created_at { get; set; }
-        public DateTime? updated_at { get; set; }
+        public DateTime? created_at { get; set; }=DateTime.Now;
+        public DateTime? updated_at { get; set; } = DateTime.Now;
 
     }
 }

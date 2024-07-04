@@ -2,6 +2,8 @@
 using Repositories.Entities;
 using Repositories.Interface;
 
+using System.Numerics;
+
 namespace Repositories.Repositories
 {
     public class CustomerRepository : IRepository<Customers>
@@ -51,6 +53,7 @@ namespace Repositories.Repositories
             customer.Phone = entity.Phone;
             customer.Connection=entity.Connection;
             customer.t_z = entity.t_z;
+            customer.Customer_type=entity.Customer_type;
             customer.birthDate = entity.birthDate;
             customer.Family_status = entity.Family_status;
             customer.Number_of_people_in_house = entity.Number_of_people_in_house;

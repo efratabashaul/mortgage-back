@@ -22,6 +22,7 @@ namespace Service.Services
         }
         public async Task<LeadsDto> AddAsync(LeadsDto entity)
         {
+            Console.WriteLine("in addAsync" + entity);
             return _mapper.Map<LeadsDto>(await _repository.AddItemAsync(_mapper.Map<Leads>(entity)));
         }
 
@@ -47,6 +48,7 @@ namespace Service.Services
 
         public async Task UpdateAsync(int id, LeadsDto entity)
         {
+            Console.WriteLine("from UpdateAsync  in LeadsService"+entity);
             await _repository.UpdateAsync(id, _mapper.Map<Leads>(entity));
         }
 
