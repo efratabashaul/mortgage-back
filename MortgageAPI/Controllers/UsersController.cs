@@ -63,7 +63,10 @@ namespace MortgageAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddItemAsync([FromBody] UsersDto usersDto)
         {
+            Console.WriteLine(  usersDto.UserName);
             var addedObject = await service.AddAsync(usersDto);
+            Console.WriteLine( "succeded?");
+            Console.WriteLine(addedObject.UserName+" "+ addedObject.Id);
             return Ok(addedObject);
         }
 

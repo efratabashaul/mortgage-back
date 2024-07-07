@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Repositories.Entities
 {
 
@@ -24,6 +25,12 @@ namespace Repositories.Entities
     {
         whatup,
         email
+    }
+    public enum Customer_Type
+    {
+        l,
+        c,
+        a
     }
 
     public enum Customer_Type
