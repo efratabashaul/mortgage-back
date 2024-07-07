@@ -42,18 +42,22 @@ namespace Repositories.Repositories
         public async  Task Post(Leads item)
         {
             await _context.Leads.AddAsync(item);
-            await _context.save();
+            //await _context.save();
         }
+
 
         public async Task UpdateAsync(int id, Leads entity)
         {
+            Console.WriteLine("id:" + entity.Id + "   name" + entity.First_Name + "   Created_at:" + entity.Created_at);
             var lead = await GetAsync(id);
             lead.First_Name = entity.First_Name;
             lead.Phone = entity.Phone;
             lead.Email = entity.Email;
             lead.Created_at = entity.Created_at;
             lead.Updated_at = entity.Updated_at;
-           
+            //updated:
+            await _context.save();
         }
+
     }
 }
