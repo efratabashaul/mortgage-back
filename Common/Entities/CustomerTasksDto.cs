@@ -11,7 +11,8 @@ namespace Common.Entities
     {
         public int Id { get; set; }
         public int Customer_Id { get; set; }
-        public int Task_description { get; set; }
+        public string Task_description { get; set; }
+        public int Document_type_id { get; set; }
         public string? Document_path { get; set; }
         public Status status { get; set; }
         public DateTime? Due_date { get; set; }

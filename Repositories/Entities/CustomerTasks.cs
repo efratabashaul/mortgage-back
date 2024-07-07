@@ -12,7 +12,8 @@ namespace Repositories.Entities
     {
         public int Id { get; set; }
         public int Customer_Id { get; set; }
-        public int Task_description { get; set; }
+        public string Task_description { get; set; }
+        public int Document_type_id { get; set; }
         public string? Document_path { get; set; }
         public Status status { get; set; }
         public DateTime? Due_date { get; set; }
@@ -20,6 +21,10 @@ namespace Repositories.Entities
         public DateTime? Updated_at { get; set; }
 
         [ForeignKey("CustomerId")]
-        public int  CustomerId { get; set; }
+        public int CustomerId { get; set; }
+
+        [ForeignKey("DocumentTypeId")]
+        public int DocumentTypes { get; set; }
+
     }
 }

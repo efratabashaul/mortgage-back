@@ -13,9 +13,8 @@ namespace Repositories.Interface
         public DbSet<Customers> Customers { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<CustomerTasks> CustomerTasks { get; set; }
-        public DbSet<Notifications> Notifications { get; set; }
-        public DbSet<AuditLogs> AuditLogs { get; set; }
-
+        public DbSet<Leads> Leads { get; set; }
+        public DbSet<DocumentTypes> DocumentTypes { get; set; }
         public Task save();
     }
 }

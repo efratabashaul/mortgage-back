@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataContext.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20240620112535_init")]
+    [Migration("20240627043653_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -24,35 +24,6 @@ namespace DataContext.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Repositories.Entities.AuditLogs", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Action")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("Created_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Details")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("User_id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AuditLogs");
-                });
 
             modelBuilder.Entity("Repositories.Entities.CustomerTasks", b =>
                 {
@@ -71,14 +42,21 @@ namespace DataContext.Migrations
                     b.Property<int>("Customer_Id")
                         .HasColumnType("int");
 
+                    b.Property<int>("DocumentTypes")
+                        .HasColumnType("int");
+
                     b.Property<string>("Document_path")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Document_type_id")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("Due_date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Task_description")
-                        .HasColumnType("int");
+                    b.Property<string>("Task_description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Updated_at")
                         .HasColumnType("datetime2");
@@ -102,16 +80,51 @@ namespace DataContext.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Amount_of_loan_requested")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("First_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Avarage_monthly_salary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Estimated_price_by_customer")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Estimated_price_by_sales_agreement")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Expenses_loans")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Expenses_other")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Expenses_rent")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Family_status")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Has_other_properties")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Income_Government_Endorsement")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Income_other")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Income_rent")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<bool?>("IsArchived")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Job_description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Job_status")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("LastSynced")
                         .HasColumnType("datetime2");
@@ -120,11 +133,35 @@ namespace DataContext.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
+                    b.Property<int>("Lead_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Number_of_people_in_house")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Property_city")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Transaction_type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Work_business_name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Years_in_current_position")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("birthDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("created_at")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("t_z")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("updated_at")
                         .HasColumnType("datetime2");
@@ -134,7 +171,7 @@ namespace DataContext.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Repositories.Entities.Notifications", b =>
+            modelBuilder.Entity("Repositories.Entities.DocumentTypes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,24 +179,50 @@ namespace DataContext.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool?>("Is_read")
+                    b.Property<string>("Document_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Required")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Message")
+                    b.Property<int>("Transaction_Type")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.HasKey("Id");
+
+                    b.ToTable("DocumentTypes");
+                });
+
+            modelBuilder.Entity("Repositories.Entities.Leads", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("User_id")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("created_at")
+                    b.Property<DateTime?>("Created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("First_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Updated_at")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Leads");
                 });
 
             modelBuilder.Entity("Repositories.Entities.Users", b =>

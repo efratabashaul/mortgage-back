@@ -18,11 +18,11 @@ namespace Service
         public static IServiceCollection AddServices(this IServiceCollection services)
         { 
             services.AddRepositories();
-            services.AddScoped<IService<AuditLogsDto>, AuditLogsService>();
             services.AddScoped<IService<UsersDto>, UserService>();
             services.AddScoped<IService<CustomersDto>,CustomerService>();
             services.AddScoped<IService<CustomerTasksDto>,CustomerTaskService>();
-            services.AddScoped<IService<NotificationsDto>, NotificationsService>();
+            services.AddScoped<IService<LeadsDto>, LeadsService>();
+            services.AddScoped<IService<DocumentTypesDto>, DocumentTypesService>();
             services.AddAutoMapper(typeof(MappeProfile));
             return services;
         }
