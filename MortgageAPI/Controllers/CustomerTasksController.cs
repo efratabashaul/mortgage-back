@@ -57,7 +57,7 @@ namespace MortgageAPI.Controllers
         //}
 
         [HttpPost]
-        public async Task<IActionResult> AddItemAsync([FromForm] CustomerTasksDto customerTasksDto)
+        public async Task<IActionResult> AddItemAsync([FromBody] CustomerTasksDto customerTasksDto)
         {
             var addedObject = await service.AddAsync(customerTasksDto);
             return Ok(addedObject);
@@ -71,7 +71,7 @@ namespace MortgageAPI.Controllers
         //}
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItemAsync(int id, [FromForm] CustomerTasksDto customerTasksDto)
+        public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] CustomerTasksDto customerTasksDto)
         {
             var updatedObject = await service.UpdateItemAsync(id, customerTasksDto);
             return Ok(updatedObject);

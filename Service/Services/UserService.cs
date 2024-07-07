@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace Service.Services
 {
-    public class UserService : IService<UsersDto>
+    public class UserService :ILoginService //IService<UsersDto>
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<Users> _repository;
+        private readonly ILogin _repository;
 
-        public UserService(IRepository<Users> repository, IMapper mapper)
+        public UserService(ILogin repository, IMapper mapper)
         {
             _mapper = mapper;
             _repository = repository;
@@ -63,6 +63,11 @@ namespace Service.Services
             return _mapper.Map<UsersDto>(updatedUser);
         }
 
-       
+        public UsersDto Login(string email, string password)
+        {
+            return _mapper.Map<UsersDto>(_repository.getUserByLogin(email, password));
+        }
+
+
     }
 }

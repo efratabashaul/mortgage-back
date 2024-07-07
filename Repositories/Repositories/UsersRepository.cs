@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Repositories
 {
-    public class UsersRepository : IRepository<Users>
+    public class UsersRepository : ILogin
     {
         private readonly IContext _context;
         public UsersRepository(IContext context)
@@ -72,7 +72,15 @@ namespace Repositories.Repositories
             return user;
         }
 
-       
+        public Users getUserByLogin(string email, string password)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
+            if (user != null)
+                return user;
+            return null;
+        }
+
+        
     }
 }
 

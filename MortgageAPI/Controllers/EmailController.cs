@@ -55,7 +55,7 @@ namespace MortgageAPI.Controllers
         }
 
 
-        [HttpGet("validate-magic-link")]
+        [HttpGet("validate-magic-link/{id}")]
         public async Task<IActionResult> ValidateMagicLink(int id)
         {
             var lead = await _service.GetAsync(id);

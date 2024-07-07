@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NETCore.MailKit.Core;
 using NETCore.MailKit;
 using Repositories.Entities;
+using Service.Interfaces;
 
 internal class Program
 {
@@ -39,7 +40,6 @@ internal class Program
 
         // Register EmailService
         builder.Services.AddTransient<Service.Interfaces.IEmailService, Service.Services.EmailService>();
-
 
 
         var app = builder.Build();

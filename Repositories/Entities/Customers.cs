@@ -26,6 +26,13 @@ namespace Repositories.Entities
         email
     }
 
+    public enum Customer_Type
+    {
+        l,
+        c,
+        a
+    }
+
 
     public class Customers
     {

@@ -13,7 +13,7 @@ namespace Repositories
     public static class ExtensionIserviceCollection
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services) {
-            services.AddScoped<IRepository<Users>,UsersRepository>();
+            services.AddScoped<ILogin, UsersRepository>();
             services.AddScoped<IRepository<Customers>, CustomerRepository>();
             services.AddScoped<IRepository<CustomerTasks>, CustomerTaskRepository>();
             services.AddScoped<IRepository<Leads>, LeadsRepository>();
