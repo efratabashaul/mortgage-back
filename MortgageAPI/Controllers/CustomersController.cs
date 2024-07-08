@@ -13,12 +13,12 @@ namespace MortgageAPI.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly IService<CustomersDto> service;
-        // GET: CustomersController
+        
         public CustomersController(IService<CustomersDto> service)
         {
             this.service = service;
         }
-        // GET: CustomersController/Details/5
+        
         [HttpGet]
         public async Task<List<CustomersDto>> Get()
         {

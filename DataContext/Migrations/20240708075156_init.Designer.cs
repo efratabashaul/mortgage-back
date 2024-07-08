@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataContext.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20240627043653_init")]
+    [Migration("20240708075156_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -35,9 +35,6 @@ namespace DataContext.Migrations
 
                     b.Property<DateTime?>("Created_at")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Customer_Id")
                         .HasColumnType("int");
@@ -86,6 +83,16 @@ namespace DataContext.Migrations
                     b.Property<decimal>("Avarage_monthly_salary")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("Connection")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Customer_type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Estimated_price_by_customer")
                         .HasColumnType("decimal(18,2)");
 
@@ -103,6 +110,10 @@ namespace DataContext.Migrations
 
                     b.Property<int>("Family_status")
                         .HasColumnType("int");
+
+                    b.Property<string>("First_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Has_other_properties")
                         .HasColumnType("bit");
@@ -138,6 +149,10 @@ namespace DataContext.Migrations
 
                     b.Property<int>("Number_of_people_in_house")
                         .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Property_city")
                         .IsRequired()
@@ -209,11 +224,18 @@ namespace DataContext.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("First_Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
