@@ -41,6 +41,8 @@ namespace MortgageAPI.Controllers
             lead.Expiration = DateTime.UtcNow.AddMinutes(15);
             await _service.UpdateAsync(id, _mapper.Map<LeadsDto>(lead));
             await _emailService.SendMagicLink(lead.Email, token,id);
+            Console.WriteLine("in post magic link");
+
             return Ok("Magic link sent.");
         }
 
