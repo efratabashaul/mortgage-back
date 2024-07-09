@@ -33,7 +33,7 @@ namespace MortgageAPI.Controllers
         //}
 
         [HttpPost]
-        public async Task<IActionResult> AddItemAsync([FromBody] DocumentTypesDto documentTypesDto)
+        public async Task<IActionResult> AddItemAsync([FromForm] DocumentTypesDto documentTypesDto)
         {
             var addedObject = await service.AddAsync(documentTypesDto);
             return Ok(addedObject);
@@ -46,9 +46,10 @@ namespace MortgageAPI.Controllers
         //}
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] DocumentTypesDto documentTypesDto)
+        public async Task<IActionResult> UpdateItemAsync(int id, [FromForm] DocumentTypesDto documentTypesDto)
         {
             var updatedObject = await service.UpdateItemAsync(id, documentTypesDto);
+            await Console.Out.WriteLineAsync();
             return Ok(updatedObject);
         }
 

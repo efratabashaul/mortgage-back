@@ -72,6 +72,9 @@ using Repositories.Interface;
 using Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using NETCore.MailKit.Core;
+using NETCore.MailKit;
+using Repositories.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
