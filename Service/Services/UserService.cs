@@ -6,6 +6,7 @@ using Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,11 @@ namespace Service.Services
         {
             return _mapper.Map<UsersDto>(await _repository.AddItemAsync(_mapper.Map<Users>(entity)));
         }
+
+        //public async Task<UsersDto> UpdateItemAsync(int id, UsersDto entity)
+        //{
+        //    return _mapper.Map<UsersDto>(await _repository.UpdateItemAsync(_mapper.Map<Users>(id, entity)));
+        //}
 
         public async Task DeleteAsync(int id)
         {
@@ -50,5 +56,13 @@ namespace Service.Services
         {
             await _repository.UpdateAsync(id, _mapper.Map<Users>(entity));
         }
+
+        public async Task<UsersDto> UpdateItemAsync(int id, UsersDto entity)
+        {
+            var updatedUser = await _repository.UpdateItemAsync(id, _mapper.Map<Users>(entity));
+            return _mapper.Map<UsersDto>(updatedUser);
+        }
+
+       
     }
 }

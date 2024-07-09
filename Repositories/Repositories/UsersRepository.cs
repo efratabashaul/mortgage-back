@@ -19,6 +19,8 @@ namespace Repositories.Repositories
 
         public async Task<Users> AddItemAsync(Users item)
         {
+            item.Created_at = DateTime.Now;
+            item.Updated_at = DateTime.Now;
             await _context.Users.AddAsync(item);
             await _context.save();
             return item;
@@ -42,6 +44,8 @@ namespace Repositories.Repositories
 
         public async Task Post(Users item)
         {
+            item.Created_at= DateTime.Now;
+            item.Updated_at= DateTime.Now;
             await _context.Users.AddAsync(item);
             await _context.save();
         }
@@ -54,7 +58,26 @@ namespace Repositories.Repositories
             user.Email = entity.Email;
             user.Role = entity.Role;
             user.Created_at = entity.Created_at;
+            user.Updated_at= DateTime.Now;
+            await _context.save();
         }
+
+
+
+        public async Task<Users> UpdateItemAsync(int id, Users entity)
+        {
+            var user = await GetAsync(id);
+            user.UserName = entity.UserName;
+            user.Password = entity.Password;
+            user.Email = entity.Email;
+            user.Role = entity.Role;
+            user.Created_at = entity.Created_at;
+            user.Updated_at= DateTime.Now;
+            await _context.save();// Use Task.Run to wrap the synchronous save method
+            return user;
+        }
+
+       
     }
 }
 

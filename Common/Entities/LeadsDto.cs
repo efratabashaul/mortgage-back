@@ -14,5 +14,7 @@ namespace Common.Entities
         public string Email { get; set; }
         public DateTime? Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
+        public string Token { get; set; }
+        public DateTime Expiration { get; set; }
     }
 }

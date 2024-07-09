@@ -18,6 +18,8 @@ namespace Repositories.Repositories
         }
         public async Task<Leads> AddItemAsync(Leads item)
         {
+            item.Created_at = DateTime.Now;
+            item.Updated_at = DateTime.Now;
             await _context.Leads.AddAsync(item);
             await _context.save();
             return item;
@@ -41,23 +43,40 @@ namespace Repositories.Repositories
 
         public async  Task Post(Leads item)
         {
+            item.Created_at=DateTime.Now;
+            item.Updated_at=DateTime.Now;
             await _context.Leads.AddAsync(item);
-            //await _context.save();
+            Console.WriteLine(item);
+            await _context.save();
         }
 
 
         public async Task UpdateAsync(int id, Leads entity)
         {
-            Console.WriteLine("id:" + entity.Id + "   name" + entity.First_Name + "   Created_at:" + entity.Created_at);
+            Console.WriteLine(entity);
             var lead = await GetAsync(id);
             lead.First_Name = entity.First_Name;
             lead.Phone = entity.Phone;
             lead.Email = entity.Email;
             lead.Created_at = entity.Created_at;
-            lead.Updated_at = entity.Updated_at;
-            //updated:
+            lead.Updated_at = DateTime.Now;
+            lead.Token = entity.Token;
+            lead.Expiration = entity.Expiration;
             await _context.save();
         }
 
+        public async Task<Leads> UpdateItemAsync(int id, Leads entity)
+        {
+            var lead = await GetAsync(id);
+            lead.First_Name = entity.First_Name;
+            lead.Phone = entity.Phone;
+            lead.Email = entity.Email;
+            lead.Created_at = entity.Created_at;
+            lead.Updated_at =DateTime.Now;
+            lead.Token = entity.Token;
+            lead.Expiration = entity.Expiration;
+            await _context.save(); // Use Task.Run to wrap the synchronous save method
+            return lead;
+        }
     }
 }
