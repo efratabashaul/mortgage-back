@@ -33,12 +33,7 @@ namespace Repositories.Entities
         a
     }
 
-    public enum Customer_Type
-    {
-        l,
-        c,
-        a
-    }
+  
 
 
     public class Customers
