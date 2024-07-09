@@ -18,7 +18,7 @@ namespace Service
         public static IServiceCollection AddServices(this IServiceCollection services)
         { 
             services.AddRepositories();
-            services.AddScoped<IService<UsersDto>, UserService>();
+            services.AddScoped<ILoginService, UserService>();
             services.AddScoped<IService<CustomersDto>,CustomerService>();
             services.AddScoped<IService<CustomerTasksDto>,CustomerTaskService>();
             services.AddScoped<IService<LeadsDto>, LeadsService>();

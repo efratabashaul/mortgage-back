@@ -19,6 +19,10 @@ namespace DataContext.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Lead_id = table.Column<int>(type: "int", nullable: false),
                     Last_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    First_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Connection = table.Column<int>(type: "int", nullable: false),
                     t_z = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     birthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Family_status = table.Column<int>(type: "int", nullable: false),
@@ -26,6 +30,7 @@ namespace DataContext.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Job_status = table.Column<int>(type: "int", nullable: false),
                     Work_business_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Customer_type = table.Column<int>(type: "int", nullable: false),
                     Job_description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Avarage_monthly_salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Years_in_current_position = table.Column<int>(type: "int", nullable: false),
@@ -65,7 +70,6 @@ namespace DataContext.Migrations
                     Due_date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created_at = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Updated_at = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     DocumentTypes = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -98,7 +102,9 @@ namespace DataContext.Migrations
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Created_at = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Updated_at = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Updated_at = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

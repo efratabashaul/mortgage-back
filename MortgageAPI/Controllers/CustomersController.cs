@@ -13,12 +13,12 @@ namespace MortgageAPI.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly IService<CustomersDto> service;
-        // GET: CustomersController
+        
         public CustomersController(IService<CustomersDto> service)
         {
             this.service = service;
         }
-        // GET: CustomersController/Details/5
+        
         [HttpGet]
         public async Task<List<CustomersDto>> Get()
         {
@@ -50,7 +50,7 @@ namespace MortgageAPI.Controllers
         //}
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItemAsync(int id, [FromForm] CustomersDto customersDto)
+        public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] CustomersDto customersDto)
         {
             var updatedObject = await service.UpdateItemAsync(id, customersDto);
             return Ok(updatedObject);

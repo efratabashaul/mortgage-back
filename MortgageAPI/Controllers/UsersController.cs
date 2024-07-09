@@ -11,18 +11,42 @@ namespace MortgageAPI.Controllers
     [ApiController]
     public class UsersController: ControllerBase
     {
-        private readonly IService<UsersDto> service;
+        private readonly ILoginService service;
         // GET: CustomersController
-        public UsersController(IService<UsersDto> service)
+        public UsersController(ILoginService service)
         {
             this.service = service;
         }
+
+
+
+        private async Task<UsersDto> Authenticate(string Email, string Password)
+        {
+            return this.service.Login(Email, Password);
+        }
+
+        [HttpPost("/login")]
+        public async Task<ActionResult> Login([FromBody] UsersDto user)
+        {
+            var u = await Authenticate(user.Email, user.Password);
+            if (u != null)
+            {
+                //var token = Generate(u);
+                return Ok();//token
+            }
+            return NotFound("user not found");
+        }
+
+
+
+
         // GET: CustomersController/Details/5
         [HttpGet]
         public async Task<List<UsersDto>> Get()
         {
             return await service.GetAllAsync();
         }
+
         [HttpGet("{id}")]
         public async Task<UsersDto> Get(int id)
         {
@@ -63,6 +87,7 @@ namespace MortgageAPI.Controllers
         public async Task DeleteAsync(int id)
         {
             await service.DeleteAsync(id);
+            
         }
     }
 }
