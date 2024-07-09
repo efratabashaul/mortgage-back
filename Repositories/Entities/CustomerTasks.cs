@@ -20,9 +20,6 @@ namespace Repositories.Entities
         public DateTime? Created_at { get; set; }= DateTime.Now;
         public DateTime? Updated_at { get; set; } = DateTime.Now;
 
-        //[ForeignKey("CustomerId")]
-        //public int CustomerId { get; set; }
-
         [ForeignKey("DocumentTypeId")]
         public int DocumentTypes { get; set; }
 

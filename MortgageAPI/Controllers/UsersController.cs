@@ -87,7 +87,7 @@ namespace MortgageAPI.Controllers
         public async Task DeleteAsync(int id)
         {
             await service.DeleteAsync(id);
-            //121212
+            
         }
     }
 }

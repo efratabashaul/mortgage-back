@@ -26,6 +26,9 @@ namespace MortgageAPI.Controllers
         {
             return await service.GetAsync(id);
         }
+
+       
+
         //[HttpPost]
         //public async Task Post([FromBody] DocumentTypesDto documentTypesDto)
         //{
