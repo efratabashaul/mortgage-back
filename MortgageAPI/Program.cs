@@ -75,6 +75,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NETCore.MailKit.Core;
 using NETCore.MailKit;
 using Repositories.Entities;
+using Service.Services;
 
 internal class Program
 {
@@ -84,6 +85,13 @@ internal class Program
 
         // Add services to the container.
         builder.Services.AddControllers();
+        builder.Services.AddScoped<DropboxService>(sp => new DropboxService(
+        builder.Configuration["Dropbox:AccessToken"],
+        builder.Configuration["Dropbox:RefreshToken"],
+        builder.Configuration["Dropbox:AppKey"],
+        builder.Configuration["Dropbox:AppSecret"]
+));
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddServices();

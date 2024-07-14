@@ -1,11 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Dropbox.Api;
-using Dropbox.Api.Files;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 using Service.Services;
 namespace MortgageAPI.Controllers
 {
@@ -14,9 +7,10 @@ namespace MortgageAPI.Controllers
     public class DropboxController : ControllerBase
     {
         private readonly DropboxService _dropboxService;
-        public DropboxController()
+
+        public DropboxController(DropboxService dropboxService)
         {
-            this._dropboxService = new DropboxService();
+            _dropboxService = dropboxService;
         }
         [HttpPost("upload")]
         public async Task<IActionResult> UploadFile(IFormFile file)
@@ -29,30 +23,39 @@ namespace MortgageAPI.Controllers
             {
                 Console.WriteLine("in upload post! in try");
 
-                var fileMetadata = await _dropboxService.UploadFileToDropbox(file); 
+                var fileMetadata = await _dropboxService.UploadFileToDropbox(file);
                 return Ok(new { FileName = fileMetadata.Name, FilePath = fileMetadata.PathDisplay });
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error uploading file: {ex.Message}");
             }
-        }
-        //[HttpGet("download/{fileName}")]
-        //public async Task<IActionResult> DownloadFile(string fileName)
-        //{
-        //    try
-        //    {
-        //        var fileBytes = await _dropboxService.DownloadFileFromDropbox(fileName);
+        }       
+        [HttpPost("uploadfiles")]
+        public async Task<IActionResult> UploadFiles(List<IFormFile> files)
+        {
+            Console.WriteLine("in upload post!");
+            if (files == null || files.Count == 0)
+                return BadRequest("No files uploaded.");
 
-        //        // Return file content as a download
-        //        return File(fileBytes, "application/octet-stream", fileName);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, $"Error downloading file: {ex.Message}");
-        //    }
-        //}
+            try
+            {
+                Console.WriteLine("in upload post! in try");
 
+                var uploadedFilesMetadata = await _dropboxService.UploadFilesToDropbox(files);
+
+                var result = uploadedFilesMetadata.Select(fileMetadata => new
+                {
+                    FileName = fileMetadata.Name,
+                    FilePath = fileMetadata.PathDisplay
+                }).ToList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error uploading files: {ex.Message}");
+            }
+        } 
     }
-
 }

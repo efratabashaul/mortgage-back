@@ -18,8 +18,15 @@ namespace MortgageAPI.Controllers
             this.service = service;
         }
 
-
-
+        [HttpGet("login")]
+        private async Task<ActionResult<UsersDto>> Authentication([FromQuery] string Email, [FromQuery]string Password)
+        {
+            var user =  this.service.Login(Email, Password);
+//            await this.service.UpdateAsync(1,null);
+            if (user != null)
+                return Ok(user);
+            return BadRequest();
+        }
         private async Task<UsersDto> Authenticate(string Email, string Password)
         {
             return this.service.Login(Email, Password);
