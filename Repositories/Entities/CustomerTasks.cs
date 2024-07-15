@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Entities
 {
-    public enum Status { Pending, Completed };
+    public enum Status { Empty, Pending, Completed };
     public class CustomerTasks
     {
         public int Id { get; set; }
