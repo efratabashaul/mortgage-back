@@ -30,25 +30,41 @@ namespace MortgageAPI.Controllers
         }
 
 
-
         private async Task<UsersDto> Authenticate(string Email, string Password)
         {
             return this.service.Login(Email, Password);
         }
 
-        [HttpPost("/login")]
-        public async Task<ActionResult> Login([FromBody] UsersDto user)
+        [HttpGet("{email}/{password}")]
+        public async Task<ActionResult> Login(string email,string password)
         {
-            var u = await Authenticate(user.Email, user.Password);
+            var u = await Authenticate(email, password);
             if (u != null)
             {
-                //var token = Generate(u);
-                return Ok();//token
+                var token = Generate(u);
+                return Ok(token);//token
             }
             return NotFound("user not found");
         }
 
+        private string Generate(UsersDto user)
+        {
+            //מפתח להצפנה
+            var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            //אלגוריתם להצפנה
+            var credentials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
 
+            var claims = new[] {
+            new Claim(ClaimTypes.NameIdentifier,user.UserName)
+            ,new Claim(ClaimTypes.Role, user.Role.ToString()),
+            new Claim("userid",user.Id.ToString())
+            };
+            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddMinutes(15),
+                signingCredentials: credentials);
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
 
 
         // GET: CustomersController/Details/5
