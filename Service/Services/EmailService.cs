@@ -43,7 +43,7 @@ namespace Service.Services
             //
             //
             // };
-
+            /* Click <a href='http://localhost:4200/magic-link?token={token}&id={id}' style='color: #ff7300;'>here</a> to log in.*/
 
             message.Body = new TextPart("html")
             {
@@ -67,7 +67,8 @@ namespace Service.Services
                                         Welcome!
                                     </h2>
                                     <p style='font-family: Arial, sans-serif; font-size: 16px;'>
-                                        Click <a href='http://localhost:4200/magic-link?token={token}&id={id}' style='color: #ff7300;'>here</a> to log in.
+                                        Click <a href='http://localhost:4200/leadLogin' style='color: #ff7300;'>here</a> to log in.
+
                                     </p>
                                 </td>
                             </tr>

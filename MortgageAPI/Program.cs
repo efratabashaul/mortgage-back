@@ -76,14 +76,18 @@ using NETCore.MailKit.Core;
 using NETCore.MailKit;
 using Repositories.Entities;
 
-var builder = WebApplication.CreateBuilder(args);
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddServices();
-builder.Services.AddDbContext<IContext, Db>();
+        // Add services to the container.
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+        builder.Services.AddServices();
+        builder.Services.AddDbContext<IContext, Db>();
 
         builder.Services.AddCors(options =>
         {
@@ -102,19 +106,19 @@ builder.Services.AddDbContext<IContext, Db>();
 
         var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseAuthorization();
+
+        app.UseCors("AllowLocalhost4200"); // השורה כבר קיימת אצלך בקוד
+
+        app.MapControllers();
+
+        app.Run();
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseAuthorization();
-
-app.UseCors("AllowLocalhost4200");
-
-
-app.MapControllers();
-
-app.Run();
