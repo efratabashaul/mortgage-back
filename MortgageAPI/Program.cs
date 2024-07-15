@@ -75,6 +75,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NETCore.MailKit.Core;
 using NETCore.MailKit;
 using Repositories.Entities;
+using Service.Services;
 
 internal class Program
 {
@@ -84,6 +85,13 @@ internal class Program
 
         // Add services to the container.
         builder.Services.AddControllers();
+        builder.Services.AddScoped<DropboxService>(sp => new DropboxService(
+        builder.Configuration["Dropbox:AccessToken"],
+        builder.Configuration["Dropbox:RefreshToken"],
+        builder.Configuration["Dropbox:AppKey"],
+        builder.Configuration["Dropbox:AppSecret"]
+));
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddServices();
@@ -95,7 +103,7 @@ internal class Program
                 builder => builder.WithOrigins("http://localhost:4200")
                                   .AllowAnyMethod()
                                   .AllowAnyHeader()
-                                  .AllowCredentials()); // ϊεριτι ΰϊ AllowCredentials λΰο
+                                  .AllowCredentials()); // ΧªΧ•Χ΅Χ™Χ¤Χ™ ΧΧª AllowCredentials Χ›ΧΧ
         });
 
         builder.Services.Configure<MailKitOptions>(builder.Configuration.GetSection("EmailSettings"));
@@ -115,7 +123,7 @@ internal class Program
         app.UseHttpsRedirection();
         app.UseAuthorization();
 
-        app.UseCors("AllowLocalhost4200"); // δωεψδ λαψ χιιξϊ ΰφμκ αχεγ
+        app.UseCors("AllowLocalhost4200"); // Χ”Χ©Χ•Χ¨Χ” Χ›Χ‘Χ¨ Χ§Χ™Χ™ΧΧª ΧΧ¦ΧΧ Χ‘Χ§Χ•Χ“
 
         app.MapControllers();
 
