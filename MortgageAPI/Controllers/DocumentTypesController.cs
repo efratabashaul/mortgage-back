@@ -26,9 +26,6 @@ namespace MortgageAPI.Controllers
         {
             return await service.GetAsync(id);
         }
-
-       
-
         //[HttpPost]
         //public async Task Post([FromBody] DocumentTypesDto documentTypesDto)
         //{
@@ -52,6 +49,7 @@ namespace MortgageAPI.Controllers
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] DocumentTypesDto documentTypesDto)
         {
             var updatedObject = await service.UpdateItemAsync(id, documentTypesDto);
+            await Console.Out.WriteLineAsync();
             return Ok(updatedObject);
         }
 

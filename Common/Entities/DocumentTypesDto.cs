@@ -9,6 +9,7 @@ namespace Common.Entities
 {
     public class DocumentTypesDto
     {
+        public int Id { get; set; }
         public TransactionTypeEnum Transaction_Type { get; set; }
         public string Document_Name { get; set; }
         public bool Required { get; set; }

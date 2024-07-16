@@ -106,6 +106,7 @@ internal class Program
                                   .WithExposedHeaders("Content-Disposition")
                                   .AllowCredentials()); // תוסיפי את AllowCredentials כאן
 
+
         });
 
         builder.Services.Configure<MailKitOptions>(builder.Configuration.GetSection("EmailSettings"));
