@@ -9,5 +9,6 @@ namespace Service.Interfaces
     public interface IEmailService
     {
         Task SendMagicLink(string email, string token,int id);
+        Task SendMailingList(List<string> recipients, string subject, string body);
     }
 }
