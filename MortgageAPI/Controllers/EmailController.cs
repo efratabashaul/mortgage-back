@@ -62,6 +62,13 @@ namespace MortgageAPI.Controllers
             await _emailService.SendMailingList(recipients, subject, body);
         }
 
+        [HttpPost("send-general/{toEmail}/{subject}/{body}")]
+        public async Task SendMailingList(string toEmail,string subject, string body)
+        {
+            await _emailService.SendGeneral(toEmail, subject, body);
+        }
+
+
         [HttpGet("validate-magic-link/{id}")]
         public async Task<IActionResult> ValidateMagicLink(int id)
         {

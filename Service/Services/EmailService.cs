@@ -131,6 +131,31 @@ namespace Service.Services
             }
         }
 
+        public async Task SendGeneral(string toEmail, string subject, string body)
+        {
+            try
+            {
+                
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress("Y.B Mortgages", _options.From));
+                    message.Subject = subject;
+                    var bodyBuilder = new BodyBuilder { TextBody = body };
+                    message.Body = bodyBuilder.ToMessageBody();
+                    message.To.Add(new MailboxAddress("", toEmail));
+
+                    using (var client = _mailKitProvider.GetSmtpClient())
+                    {
+                        await client.SendAsync(message);
+                        await client.DisconnectAsync(true);
+                    }
+                Console.WriteLine("Emails sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to send email. Error: " + ex.Message);
+            }
+        }
+
         static List<List<string>> CreateBatches(List<string> source, int batchSize)
         {
             var batches = new List<List<string>>();

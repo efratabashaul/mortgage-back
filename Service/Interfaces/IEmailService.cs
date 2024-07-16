@@ -10,5 +10,7 @@ namespace Service.Interfaces
     {
         Task SendMagicLink(string email, string token,int id);
         Task SendMailingList(List<string> recipients, string subject, string body);
+        Task SendGeneral(string toEmail, string subject, string body);
+
     }
 }
