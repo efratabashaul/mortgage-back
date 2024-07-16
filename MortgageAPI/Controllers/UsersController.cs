@@ -35,11 +35,13 @@ namespace MortgageAPI.Controllers
         [HttpPost("/login")]
         public async Task<ActionResult> Login([FromBody] UsersDto user)
         {
+            Console.WriteLine("in login");
             var u = await Authenticate(user.Email, user.Password);
             if (u != null)
             {
+                Console.WriteLine("in u see");
                 //var token = Generate(u);
-                return Ok();//token
+                return Ok(u);//token
             }
             return NotFound("user not found");
         }

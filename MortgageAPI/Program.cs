@@ -103,7 +103,9 @@ internal class Program
                 builder => builder.WithOrigins("http://localhost:4200")
                                   .AllowAnyMethod()
                                   .AllowAnyHeader()
+                                  .WithExposedHeaders("Content-Disposition")
                                   .AllowCredentials()); // תוסיפי את AllowCredentials כאן
+
         });
 
         builder.Services.Configure<MailKitOptions>(builder.Configuration.GetSection("EmailSettings"));
@@ -111,8 +113,10 @@ internal class Program
         builder.Services.AddSingleton<Repositories.Interface.IMailKitProvider, Repositories.Repositories.MailKitProvider>();
 
         builder.Services.AddTransient<Service.Interfaces.IEmailService, Service.Services.EmailService>();
+        builder.Services.AddSignalR();
 
         var app = builder.Build();
+
 
         if (app.Environment.IsDevelopment())
         {
@@ -121,9 +125,11 @@ internal class Program
         }
 
         app.UseHttpsRedirection();
+        app.UseCors("AllowLocalhost4200");
+
         app.UseAuthorization();
 
-        app.UseCors("AllowLocalhost4200"); // השורה כבר קיימת אצלך בקוד
+
 
         app.MapControllers();
 

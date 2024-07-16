@@ -56,6 +56,41 @@ namespace MortgageAPI.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error uploading files: {ex.Message}");
             }
-        } 
+        }
+        //[HttpGet("download/{id}")]
+        //public async Task<IActionResult> DownloadFile(string id)
+        //{
+        //    Console.WriteLine("in download file id="+id);
+        //    var fileContent = await _dropboxService.DownloadFileById(id);
+        //    if (fileContent == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    Console.WriteLine("after download");
+        //    return File(fileContent, "application/octet-stream", $"{id}_file_from_dropbox");
+        //}
+        [HttpGet("download/{id}")]
+        public async Task<IActionResult> DownloadFile(string id)
+        {
+            Console.WriteLine("in download file id=" + id);
+
+            // Call the service to download the file
+            var fileContent = await _dropboxService.DownloadFileById(id);
+            if (fileContent == null)
+            {
+                return NotFound();
+            }
+
+            Console.WriteLine("after download");
+
+            // Optionally, retrieve original file metadata for the correct name
+            //var fileMetadata = await _dropboxService.DownloadFileById(id);
+            string originalFileName = fileContent?.FileName ?? $"{id}_file_from_dropbox";
+            Response.Headers.Add("Content-Disposition", $"attachment; filename=\"{originalFileName}\"");
+            return File(fileContent.Content, "application/octet-stream", originalFileName);
+        }
+        
+
     }
 }
