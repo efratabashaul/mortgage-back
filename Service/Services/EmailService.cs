@@ -135,13 +135,16 @@ namespace Service.Services
         {
             try
             {
-                
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("Y.B Mortgages", _options.From));
                     message.Subject = subject;
-                    var bodyBuilder = new BodyBuilder { TextBody = body };
-                    message.Body = bodyBuilder.ToMessageBody();
-                    message.To.Add(new MailboxAddress("", toEmail));
+                //var bodyBuilder = new BodyBuilder { TextBody = body };
+                //message.Body = bodyBuilder.ToMessageBody();
+                message.Body = new TextPart("html")
+                {
+                    Text = body
+                };
+                message.To.Add(new MailboxAddress("", toEmail));
 
                     using (var client = _mailKitProvider.GetSmtpClient())
                     {
