@@ -97,6 +97,10 @@ namespace Service.Services
         }
         public async Task SendMailingList(List<string>recipients, string subject, string body)
         {
+            if (subject == "")
+                subject = " ";
+            if(body =="")
+                body= " ";
             int batchSize = 100; // size of the group according to the limitation of the server
             List<List<string>> batches = CreateBatches(recipients, batchSize);
 
