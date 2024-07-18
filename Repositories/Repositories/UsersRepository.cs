@@ -84,8 +84,14 @@ namespace Repositories.Repositories
                 return user;
             return null;
         }
+        public Users getUserEmail(string email)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.Email == email);
+            if (user != null)
+                return user;
+            return null;
+        }
 
-        
     }
 }
 

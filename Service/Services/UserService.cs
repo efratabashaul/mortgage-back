@@ -68,6 +68,9 @@ namespace Service.Services
             return _mapper.Map<UsersDto>(_repository.getUserByLogin(email, password));
         }
 
-
+        public UsersDto SetPassword(string Email)
+        {
+            return _mapper.Map<UsersDto>(_repository.getUserEmail(Email));
+        }
     }
 }

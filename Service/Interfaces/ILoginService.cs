@@ -1,4 +1,5 @@
 ﻿using Common.Entities;
+using Repositories.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,8 @@ namespace Service.Interfaces
     public interface ILoginService:IService<UsersDto>
     {
         public UsersDto Login(string password, string Email);
+        public UsersDto SetPassword(string email);
+
+
     }
 }

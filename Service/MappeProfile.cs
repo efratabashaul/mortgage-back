@@ -19,6 +19,7 @@ namespace Service
             CreateMap<UsersDto, Users>().ReverseMap();
             CreateMap<LeadsDto, Leads>().ReverseMap();
             CreateMap<DocumentTypesDto, DocumentTypes>().ReverseMap();
+            CreateMap<NotificationDto,Notification>().ReverseMap();
         }
     }
 }
