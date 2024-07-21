@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
+using static Dropbox.Api.Files.ListRevisionsMode;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,6 +29,13 @@ namespace MortgageAPI.Controllers
         public async Task<CustomersDto> Get(int id)
         {
             return await service.GetAsync(id);
+        }
+        [HttpGet("userId{userId}")]
+        public async Task<int> GetByUserId(int userId)
+        {
+            var allCustomers = await Get();
+            var customer = allCustomers.Find(x => x.UserId == userId);
+            return customer.Id;
         }
 
         //[HttpPost]
