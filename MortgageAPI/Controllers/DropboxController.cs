@@ -7,7 +7,6 @@ namespace MortgageAPI.Controllers
     public class DropboxController : ControllerBase
     {
         private readonly DropboxService _dropboxService;
-
         public DropboxController(DropboxService dropboxService)
         {
             _dropboxService = dropboxService;
@@ -15,14 +14,11 @@ namespace MortgageAPI.Controllers
         [HttpPost("upload")]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            Console.WriteLine("in upload post!");
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
             try
             {
-                Console.WriteLine("in upload post! in try");
-
                 var fileMetadata = await _dropboxService.UploadFileToDropbox(file);
                 return Ok(new { FileName = fileMetadata.Name, FilePath = fileMetadata.PathDisplay });
             }
@@ -41,9 +37,7 @@ namespace MortgageAPI.Controllers
             try
             {
                 Console.WriteLine("in upload post! in try");
-
                 var uploadedFilesMetadata = await _dropboxService.UploadFilesToDropbox(files);
-
                 var result = uploadedFilesMetadata.Select(fileMetadata => new
                 {
                     FileName = fileMetadata.Name,
@@ -57,25 +51,10 @@ namespace MortgageAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error uploading files: {ex.Message}");
             }
         }
-        //[HttpGet("download/{id}")]
-        //public async Task<IActionResult> DownloadFile(string id)
-        //{
-        //    Console.WriteLine("in download file id="+id);
-        //    var fileContent = await _dropboxService.DownloadFileById(id);
-        //    if (fileContent == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    Console.WriteLine("after download");
-        //    return File(fileContent, "application/octet-stream", $"{id}_file_from_dropbox");
-        //}
-        [HttpGet("download/{id}")]
+          [HttpGet("download/{id}")]
         public async Task<IActionResult> DownloadFile(string id)
         {
             Console.WriteLine("in download file id=" + id);
-
-            // Call the service to download the file
             var fileContent = await _dropboxService.DownloadFileById(id);
             if (fileContent == null)
             {
@@ -83,14 +62,9 @@ namespace MortgageAPI.Controllers
             }
 
             Console.WriteLine("after download");
-
-            // Optionally, retrieve original file metadata for the correct name
-            //var fileMetadata = await _dropboxService.DownloadFileById(id);
             string originalFileName = fileContent?.FileName ?? $"{id}_file_from_dropbox";
             Response.Headers.Add("Content-Disposition", $"attachment; filename=\"{originalFileName}\"");
             return File(fileContent.Content, "application/octet-stream", originalFileName);
         }
-        
-
     }
 }
