@@ -9,6 +9,8 @@ using Repositories.Interface;
 using Service.Interfaces;
 using Service.Services;
 using System.Security.Cryptography;
+using System.Web;
+using static Dropbox.Api.Files.ListRevisionsMode;
 using IEmailService = Service.Interfaces.IEmailService;
 
 namespace MortgageAPI.Controllers
@@ -98,6 +100,12 @@ namespace MortgageAPI.Controllers
             var u = this._userService.SetPassword(email);
             if (u != null)
             {
+            //    var baseUrl = "http://localhost:4200/forgot-password/";
+            //    var userJson = System.Text.Json.JsonSerializer.Serialize(u);
+            //    var encodedUserJson = HttpUtility.UrlEncode(userJson);
+            //    var completeUrl = $"{baseUrl}{encodedUserJson}";
+                int usrId=u.Id;
+                Console.WriteLine("in reset and found the user");
                 string subject = "reset password";
                 string body = $@"
         <html>
@@ -119,8 +127,7 @@ namespace MortgageAPI.Controllers
                                        reset password איפוס סיסמא---
                                     </h2>
                                     <p style='font-family: Arial, sans-serif; font-size: 16px;'>
-                                        Click <a href='http://localhost:4200/forgot-password' style='color: #ff7300;'>here</a> to reset password.
-
+                                        Click <a href='http://localhost:4200/forgot-password/{usrId}' style='color: #ff7300;'>here</a> to reset password.
                                     </p>
                                 </td>
                             </tr>

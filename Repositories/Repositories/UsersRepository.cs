@@ -49,31 +49,28 @@ namespace Repositories.Repositories
             await _context.Users.AddAsync(item);
             await _context.save();
         }
-
         public async Task UpdateAsync(int id, Users entity)
         {
-            var user=await GetAsync(id);
-            user.UserName = entity.UserName;
-            user.Password = entity.Password;
-            user.Email = entity.Email;
-            user.Role = entity.Role;
-            user.Created_at = entity.Created_at;
-            user.Updated_at= DateTime.Now;
+            var user = await GetAsync(id);
+            user.UserName = entity.UserName != null ? entity.UserName : user.UserName;
+            user.Password = entity.Password != null ? entity.Password : user.Password;
+            user.Email = entity.Email != null ? entity.Email : user.Email;
+            user.Role = entity.Role !=Role.None ? entity.Role : user.Role;
+            user.Created_at = entity.Created_at != null ? entity.Created_at : user.Created_at;
+            user.Updated_at = DateTime.Now;
             await _context.save();
         }
-
-
-
         public async Task<Users> UpdateItemAsync(int id, Users entity)
         {
+            Console.WriteLine("in UpdateItemAsync");
             var user = await GetAsync(id);
-            user.UserName = entity.UserName;
-            user.Password = entity.Password;
-            user.Email = entity.Email;
-            user.Role = entity.Role;
-            user.Created_at = entity.Created_at;
-            user.Updated_at= DateTime.Now;
-            await _context.save();// Use Task.Run to wrap the synchronous save method
+            user.UserName = entity.UserName != "string" ? entity.UserName : user.UserName;
+            user.Password = entity.Password != null ? entity.Password : user.Password;
+            user.Email = entity.Email != "string" ? entity.Email : user.Email;
+            user.Role = entity.Role != Role.None ? entity.Role : user.Role;
+            user.Created_at = entity.Created_at != null ? entity.Created_at : user.Created_at;
+            user.Updated_at = DateTime.Now;
+            await _context.save();// Use Task.Run to wrap the synchronous save met hod
             return user;
         }
 
