@@ -60,14 +60,18 @@ namespace MortgageAPI.Controllers
             }
         }
 
-        [HttpPost("send-mailing-list/{subject}/{body}")]
-        public async Task SendMailingList(string subject, string body,[FromBody] List<string> recipients)
+
+        [HttpPost("send-mailing-list/{recipients}")]
+        public async Task SendMailingList(string recipients,  [FromBody] EmailRequest emailRequest)
         {
-            await _emailService.SendMailingList(recipients, subject, body);
+            var recipientList = recipients.Split(',').ToList();
+            await _emailService.SendMailingList(recipientList, emailRequest.Subject, emailRequest.Body);
         }
 
+
+
         [HttpPost("send-general/{toEmail}/{subject}/{body}")]
-        public async Task SendMailingList(string toEmail,string subject, string body)
+        public async Task SendGeneral(string toEmail,string subject, string body)
         {
             await _emailService.SendGeneral(toEmail, subject, body);
         }

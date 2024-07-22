@@ -12,7 +12,7 @@ namespace Service.Services
         private readonly string _appSecret;
         private string _accessToken;
         private DateTime _accessTokenCreationTime;
-        private readonly int _accessTokenLifetimeSeconds = 14400; // זמן חיי ה-token ב-שניות (4 שעות)
+        private readonly int _accessTokenLifetimeSeconds = 14400; 
 
         public DropboxService(string accessToken, string refreshToken, string appKey, string appSecret)
         {
@@ -20,17 +20,14 @@ namespace Service.Services
             _refreshToken = refreshToken;
             _appKey = appKey;
             _appSecret = appSecret;
-            _accessTokenCreationTime = DateTime.MinValue; // מאתחל לזמן מאוד מוקדם כדי שהטוקן יתרענן תמיד עם יצירת האובייקט
+            _accessTokenCreationTime = DateTime.MinValue;
         }
         public async Task<FileMetadata> UploadFileToDropbox(IFormFile file)
         {
-            Console.WriteLine("-------------------------------------------------------------------------------------------------");
-
             await RefreshAccessTokenIfNeeded();
             Console.WriteLine("after refresh");
             try
             {
-                Console.WriteLine("in try in service");
                 using (var memoryStream = new MemoryStream())
                 {
                     await file.CopyToAsync(memoryStream);
@@ -56,16 +53,11 @@ namespace Service.Services
 
         public async Task RefreshAccessTokenIfNeeded()
         {
-           // Console.WriteLine("in");
-            //if ((DateTime.UtcNow - _accessTokenCreationTime).TotalSeconds >= _accessTokenLifetimeSeconds)
+            if ((DateTime.UtcNow - _accessTokenCreationTime).TotalSeconds >= _accessTokenLifetimeSeconds)
             {
-                Console.WriteLine("in if RefreshAccessTokenIfNeeded");
-                //Console.WriteLine($"Refresh Token: {_refreshToken}");
-
                 using (var client = new HttpClient())
                 {
                     var request = new HttpRequestMessage(HttpMethod.Post, "https://api.dropboxapi.com/oauth2/token");
-
                     var keyValues = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("grant_type", "refresh_token"),
@@ -75,22 +67,13 @@ namespace Service.Services
             };
 
                     request.Content = new FormUrlEncodedContent(keyValues);
-                    Console.WriteLine("1******************************");
-
                     var response = await client.SendAsync(request);
                     var responseContent = await response.Content.ReadAsStringAsync();
-
-                    Console.WriteLine($"Response: {response}");
-                    Console.WriteLine($"Response Content: {responseContent}");
-
                     if (!response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine("Error occurred:");
-                        Console.WriteLine(responseContent);
+                        Console.WriteLine("Error occurred:"+ responseContent);
                         return;
                     }
-                    Console.WriteLine("2******************************");
-
                     response.EnsureSuccessStatusCode();
 
                     var tokenResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseContent);
@@ -98,13 +81,9 @@ namespace Service.Services
                     if (tokenResponse != null && tokenResponse.ContainsKey("access_token"))
                     {
                         _accessToken = tokenResponse["access_token"];
-                        _accessTokenCreationTime = DateTime.UtcNow; // נעדכן את זמן יצירת ה-token
+                        _accessTokenCreationTime = DateTime.UtcNow; 
                     }
-                    Console.WriteLine("_accessToken before:" + _accessToken);
-                    _accessToken = tokenResponse["access_token"];
-                    Console.WriteLine("_accessToken after:" + _accessToken);
-
-
+                   _accessToken = tokenResponse["access_token"];
                 }
             }
         }
@@ -112,15 +91,12 @@ namespace Service.Services
 
         public async Task<List<FileMetadata>> UploadFilesToDropbox(List<IFormFile> files)
         {
-            Console.WriteLine("-------------------------------------------------------------------------------------------------");
             await RefreshAccessTokenIfNeeded();
-            Console.WriteLine("in UploadFilesToDropboxin service");
             List<FileMetadata> uploadedFiles = new List<FileMetadata>();
             try
             {
                 foreach (var file in files)
                 {
-                    //await CheckAndRefreshAccessToken(); // אמור לבצע רענון רק אם זו הפעם השנייה
                     using (var memoryStream = new MemoryStream())
                     {
                         await file.CopyToAsync(memoryStream);
@@ -148,45 +124,6 @@ namespace Service.Services
 
 
 
-
-        //    public async Task<byte[]> DownloadFileById(string id)
-        //    {
-        //        //await RefreshAccessTokenIfNeeded();
-
-        //        using (var dbx = new DropboxClient(_accessToken))
-        //        {
-        //            var list = await dbx.Files.ListFolderAsync(string.Empty);
-        //            foreach (var item in list.Entries)
-        //            {
-        //                Console.WriteLine(item.Name);
-        //            }
-        //            var fileMetadata = list.Entries
-        //                .Where(i => i.IsFile && i.Name.StartsWith(""+id + "_"))
-        //                .FirstOrDefault();
-        //            Console.WriteLine("in download service filemetadata="+fileMetadata.Name);
-        //            if (fileMetadata != null)
-        //            {
-        //                Console.WriteLine("in if in %%%%%%%%%%%%%%%%%%%%%%%%%%");
-        //                try
-        //                {
-        //                    using (var response = await dbx.Files.DownloadAsync(fileMetadata.PathLower))
-        //                    {
-        //                        Console.WriteLine("in if in using%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        //                        return  await response.GetContentAsByteArrayAsync();
-        //                    }
-        //                }
-        //                catch (Exception x)
-        //                {
-        //                  string err=  x.Message;
-        //                    throw;
-        //                }
-
-        //            }
-        //        }
-
-        //        return null;
-        //    }
-        //}
         public class FileDownloadResult
         {
             public byte[] Content { get; set; }
@@ -194,27 +131,18 @@ namespace Service.Services
         }
         public async Task<FileDownloadResult> DownloadFileById(string id)
         {
-            Console.WriteLine("-------------------------------------------------------------------------------------------------");
-
             await RefreshAccessTokenIfNeeded();
 
             using (var dbx = new DropboxClient(_accessToken))
             {
                 var list = await dbx.Files.ListFolderAsync(string.Empty);
-                foreach (var item in list.Entries)
-                {
-                    Console.WriteLine(item.Name);
-                }
-
                         var fileMetadata = list.Entries
                     .Where(i => i.IsFile && i.Name.StartsWith($"{id}_"))
                     .FirstOrDefault();
-                Console.WriteLine("in service, ");
                 if (fileMetadata != null)
                 {
                     using (var response = await dbx.Files.DownloadAsync(fileMetadata.PathLower))
                     {
-                        Console.WriteLine("\n=====================================in\n");
                         var content = await response.GetContentAsByteArrayAsync();
                         return new FileDownloadResult
                         {

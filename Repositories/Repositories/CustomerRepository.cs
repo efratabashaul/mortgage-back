@@ -39,7 +39,6 @@ namespace Repositories.Repositories
         {
             return await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
         }
-
         public async Task Post(Customers item)
         {
             item.updated_at = DateTime.Now;

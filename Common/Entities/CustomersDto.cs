@@ -11,6 +11,8 @@ namespace Common.Entities
     public class CustomersDto
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
+
         public int Lead_id { get; set; }
         public int UserId { get; set; }
         public string Last_Name { get; set; }
