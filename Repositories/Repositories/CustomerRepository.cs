@@ -52,6 +52,7 @@ namespace Repositories.Repositories
             var customer = await GetAsync(id);
             customer.Lead_id = entity.Lead_id;
             customer.Last_Name = entity.Last_Name;
+            customer.UserId = entity.UserId;
             customer.First_Name = entity.First_Name;
             customer.Email = entity.Email;
             customer.Phone = entity.Phone;
@@ -88,6 +89,7 @@ namespace Repositories.Repositories
             var customer = await GetAsync(id);
             customer.Lead_id = entity.Lead_id;
             customer.Last_Name = entity.Last_Name;
+            customer.UserId = entity.UserId;
             customer.First_Name = entity.First_Name;
             customer.Email = entity.Email;
             customer.Phone = entity.Phone;

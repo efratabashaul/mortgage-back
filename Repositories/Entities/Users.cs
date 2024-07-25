@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Repositories.Entities
 {
     public enum Role
-    {
+    {   None=-1,
         Admin,
         Customer
     }

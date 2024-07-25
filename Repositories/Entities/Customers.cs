@@ -39,6 +39,7 @@ namespace Repositories.Entities
         public int UserId { get; set; }
 
         public int Lead_id { get; set; }
+        public int UserId { get; set; }
         public string Last_Name { get; set; }
         public string First_Name { get; set; }
         public string Email { get; set; }
