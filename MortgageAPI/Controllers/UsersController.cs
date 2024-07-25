@@ -11,7 +11,7 @@ using System.CodeDom.Compiler;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Newtonsoft.Json;  // חבילה נוספת לעבודה עם JSON
+using Newtonsoft.Json;  // one more package for working with JSON
 
 
 
@@ -19,6 +19,7 @@ using Newtonsoft.Json;  // חבילה נוספת לעבודה עם JSON
 
 namespace MortgageAPI.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController: ControllerBase
@@ -82,7 +83,7 @@ namespace MortgageAPI.Controllers
             };
             var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(15),
+                expires: DateTime.Now.AddMinutes(60),
                 signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
@@ -90,10 +91,13 @@ namespace MortgageAPI.Controllers
 
         // GET: CustomersController/Details/5
         [HttpGet]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<List<UsersDto>> Get()
         {
             return await service.GetAllAsync();
         }
+
+        [Authorize(Policy = "AdminPolicy")]
 
         [HttpGet("{id}")]
         public async Task<UsersDto> Get(int id)
@@ -101,6 +105,7 @@ namespace MortgageAPI.Controllers
             return await service.GetAsync(id);
         }
 
+        [Authorize(Policy = "AdminPolicy")]
 
         [HttpPost]
         public async Task<IActionResult> AddItemAsync([FromBody] UsersDto usersDto)
@@ -117,6 +122,7 @@ namespace MortgageAPI.Controllers
         //{
         //    await service.UpdateAsync(id,usersDto);
         //}
+        [Authorize(Policy = "AdminPolicy")]
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] UsersDto usersDto)
@@ -124,6 +130,7 @@ namespace MortgageAPI.Controllers
             var updatedObject = await service.UpdateItemAsync(id, usersDto);
             return Ok(updatedObject);
         }
+        [Authorize(Policy = "AdminPolicy")]
 
         [HttpDelete("{id}")]
         public async Task DeleteAsync(int id)
