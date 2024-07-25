@@ -3,11 +3,7 @@ using Common.Entities;
 using Repositories.Entities;
 using Repositories.Interface;
 using Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Service.Services
 {
@@ -22,39 +18,40 @@ namespace Service.Services
             _repository = repository;
         }
 
-        Task<NotificationDto> IService<NotificationDto>.AddAsync(NotificationDto entity)
+        async Task<NotificationDto> IService<NotificationDto>.AddAsync(NotificationDto entity)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<NotificationDto>(await _repository.AddItemAsync(_mapper.Map<Notification>(entity)));
         }
 
-        Task IService<NotificationDto>.DeleteAsync(int id)
+        async Task IService<NotificationDto>.DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            await _repository.DeleteAsync(id);
         }
 
-        Task<List<NotificationDto>> IService<NotificationDto>.GetAllAsync()
+        async Task<List<NotificationDto>> IService<NotificationDto>.GetAllAsync()
         {
-            throw new NotImplementedException();
+            return _mapper.Map<List<NotificationDto>>(await _repository.GetAllAsync());
         }
 
-        Task<NotificationDto> IService<NotificationDto>.GetAsync(int id)
+        async Task<NotificationDto> IService<NotificationDto>.GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<NotificationDto>(await _repository.GetAsync(id));
         }
 
-        Task IService<NotificationDto>.Post(NotificationDto item)
+        async Task IService<NotificationDto>.Post(NotificationDto item)
         {
-            throw new NotImplementedException();
+            await _repository.Post(_mapper.Map<Notification>(item));
         }
 
-        Task IService<NotificationDto>.UpdateAsync(int id, NotificationDto entity)
+        async Task IService<NotificationDto>.UpdateAsync(int id, NotificationDto entity)
         {
-            throw new NotImplementedException();
+            await _repository.UpdateAsync(id, _mapper.Map<Notification>(entity));
         }
 
-        Task<NotificationDto> IService<NotificationDto>.UpdateItemAsync(int id, NotificationDto entity)
+        async Task<NotificationDto> IService<NotificationDto>.UpdateItemAsync(int id, NotificationDto entity)
         {
-            throw new NotImplementedException();
+            var updatedUser = await _repository.UpdateItemAsync(id, _mapper.Map<Notification>(entity));
+            return _mapper.Map<NotificationDto>(updatedUser);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Repositories.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Repositories.Entities;
 using Repositories.Interface;
 using System;
 using System.Collections.Generic;
@@ -16,39 +17,60 @@ namespace Repositories.Repositories
             _context = context;
         }
 
-        public Task<Notification> AddItemAsync(Notification item)
+        public async Task<Notification> AddItemAsync(Notification item)
         {
-            throw new NotImplementedException();
+            item.created_at = DateTime.Now;
+            await _context.Notifications.AddAsync(item);
+            await _context.save();
+            return item;
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            _context.Notifications.Remove(await GetAsync(id));
+            await _context.save();
         }
 
-        public Task<List<Notification>> GetAllAsync()
+        public async Task<List<Notification>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await this._context.Notifications.ToListAsync();
         }
 
-        public Task<Notification> GetAsync(int id)
+        public async Task<Notification> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Notifications.FirstOrDefaultAsync(x => x.ID == id);
         }
 
-        public Task Post(Notification item)
+        public async Task Post(Notification item)
         {
-            throw new NotImplementedException();
+            item.created_at = DateTime.Now;
+            Console.WriteLine("in Post niti in repository");
+            Console.WriteLine("entity in post=" + item);
+            await _context.Notifications.AddAsync(item);
+            await _context.save();
         }
 
-        public Task UpdateAsync(int id, Notification entity)
+        public async Task UpdateAsync(int id, Notification entity)
         {
-            throw new NotImplementedException();
+            var notification=await GetAsync(id);
+            notification.Message = entity.Message;
+            notification.created_at = DateTime.Now;
+            notification.UserId = entity.UserId;
+            notification.IsRead = entity.IsRead;
+            Console.WriteLine("entity in post="+entity);
+            await _context.save();
         }
 
-        public Task<Notification> UpdateItemAsync(int id, Notification entity)
+        public async Task<Notification> UpdateItemAsync(int id, Notification entity)
         {
-            throw new NotImplementedException();
+            var notification = await GetAsync(id);
+            notification.Message = entity.Message;
+            notification.created_at = DateTime.Now;
+            notification.UserId = entity.UserId;
+            notification.IsRead = entity.IsRead;
+            Console.WriteLine("in update noti async repos entity="+entity.IsRead);
+            await _context.save();
+            return notification;
         }
     }
 }

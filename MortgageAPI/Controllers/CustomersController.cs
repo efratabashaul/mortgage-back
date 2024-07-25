@@ -33,6 +33,7 @@ namespace MortgageAPI.Controllers
         [HttpGet("userId{userId}")]
         public async Task<int> GetByUserId(int userId)
         {
+            Console.WriteLine("userid="+userId);
             var allCustomers = await Get();
             var customer = allCustomers.Find(x => x.UserId == userId);
             return customer.Id;

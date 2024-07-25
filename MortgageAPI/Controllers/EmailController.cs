@@ -104,7 +104,7 @@ namespace MortgageAPI.Controllers
             var u = this._userService.SetPassword(email);
             if (u != null)
             {
-            //    var baseUrl = "http://localhost:4200/forgot-password/";
+            //    var baseUrl = "http://localhost:4200/auth/forgot-password/";
             //    var userJson = System.Text.Json.JsonSerializer.Serialize(u);
             //    var encodedUserJson = HttpUtility.UrlEncode(userJson);
             //    var completeUrl = $"{baseUrl}{encodedUserJson}";
@@ -131,7 +131,7 @@ namespace MortgageAPI.Controllers
                                        reset password איפוס סיסמא---
                                     </h2>
                                     <p style='font-family: Arial, sans-serif; font-size: 16px;'>
-                                        Click <a href='http://localhost:4200/forgot-password/{usrId}' style='color: #ff7300;'>here</a> to reset password.
+                                        Click <a href='http://localhost:4200/auth/forgot-password/{usrId}' style='color: #ff7300;'>here</a> to reset password.
                                     </p>
                                 </td>
                             </tr>

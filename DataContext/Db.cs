@@ -15,7 +15,7 @@ namespace DataContext
         public DbSet<Users> Users { get; set; }
         public DbSet<CustomerTasks>  CustomerTasks { get; set; }
         public DbSet<DocumentTypes> DocumentTypes { get; set; }
-        public DbSet<Notification> ChatMessages { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
         public DbSet<Leads> Leads { get; set; }
 
         public async Task save()
