@@ -60,7 +60,7 @@ namespace MortgageAPI.Controllers
             {
                 return NotFound();
             }
-
+             
             Console.WriteLine("after download");
             string originalFileName = fileContent?.FileName ?? $"{id}_file_from_dropbox";
             Response.Headers.Add("Content-Disposition", $"attachment; filename=\"{originalFileName}\"");
