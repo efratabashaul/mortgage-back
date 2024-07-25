@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entities;
@@ -16,8 +17,6 @@ namespace MortgageAPI.Controllers
     {
         private readonly IService<CustomerTasksDto> service;
         
-
-        
         public CustomerTasksControllercs(IService<CustomerTasksDto> service)
         {
             this.service = service;
@@ -25,21 +24,24 @@ namespace MortgageAPI.Controllers
         }
         
         [HttpGet]
+        [Authorize]
+
         public async Task<List<CustomerTasksDto>> Get()
         {
             return await service.GetAllAsync();
         }
         [HttpGet("{id}")]
+        [Authorize]
+
         public async Task<CustomerTasksDto> Get(int id)
         {
             return await service.GetAsync(id);
         }
 
-       
-
-
 
         [HttpGet("customerId/{id}")]
+        [Authorize]
+
         public async Task<List<CustomerTasksDto>> GetByCustomer(int id)
         {
             var allcustomerTask = await Get();
@@ -68,6 +70,8 @@ namespace MortgageAPI.Controllers
         //}
 
         [HttpPut("{id}")]
+        [Authorize]
+
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] CustomerTasksDto customerTasksDto)
         {
             var updatedObject = await service.UpdateItemAsync(id, customerTasksDto);

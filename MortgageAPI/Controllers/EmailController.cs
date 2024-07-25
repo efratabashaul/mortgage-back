@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,6 @@ namespace MortgageAPI.Controllers
     [Route("api/[controller]")]
     public class EmailController : ControllerBase
     {
-
         private readonly IEmailService _emailService;
         private readonly IContext _context;
         private readonly IService<LeadsDto> _service;
@@ -37,6 +37,8 @@ namespace MortgageAPI.Controllers
         }
 
         [HttpPost("send-magic-link")]//[FromBody] string email,
+        [Authorize(Policy = "AdminPolicy")]
+
         public async Task<IActionResult> SendMagicLink(int id)
         {
             var token = GenerateToken();
@@ -62,6 +64,8 @@ namespace MortgageAPI.Controllers
 
 
         [HttpPost("send-mailing-list/{recipients}")]
+        [Authorize(Policy = "AdminPolicy")]
+
         public async Task SendMailingList(string recipients,  [FromBody] EmailRequest emailRequest)
         {
             var recipientList = recipients.Split(',').ToList();
@@ -69,6 +73,7 @@ namespace MortgageAPI.Controllers
         }
 
 
+        [Authorize(Policy = "AdminPolicy")]
 
         [HttpPost("send-general/{toEmail}/{subject}/{body}")]
         public async Task SendGeneral(string toEmail,string subject, string body)
@@ -76,6 +81,7 @@ namespace MortgageAPI.Controllers
             await _emailService.SendGeneral(toEmail, subject, body);
         }
 
+        [Authorize(Policy = "AdminPolicy")]
 
         [HttpGet("validate-magic-link/{id}")]
         public async Task<IActionResult> ValidateMagicLink(int id)
@@ -88,7 +94,9 @@ namespace MortgageAPI.Controllers
             }
             return BadRequest("Token is invalid or expired.");
         }
-        
+
+        [Authorize(Policy = "AdminPolicy")]
+
         private async Task<bool> IsTokenValid(LeadsDto lead)
         {
             if (lead == null || lead.Expiration < DateTime.UtcNow)
@@ -97,6 +105,9 @@ namespace MortgageAPI.Controllers
             }
             return true;
         }
+
+
+
         [HttpPost("/password/{email}")]
         public async Task<ActionResult> ResetPassword(string email)
         {
