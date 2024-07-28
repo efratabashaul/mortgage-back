@@ -16,7 +16,7 @@ namespace Repositories.Entities
         Divorced,
         Widow
     }
-<<<<<<< HEAD
+
     public enum Customer_Type
     {
         l,
@@ -66,7 +66,6 @@ namespace Repositories.Entities
 
     }
 }
-=======
     public enum Job_Status
     {
         Employed,
@@ -124,5 +123,3 @@ namespace Repositories.Entities
         public DateTime? updated_at { get; set; } = DateTime.Now;
 
     }
-}
->>>>>>> 74b1119a4f8de6e1eebee33c02180bbd0bcb3971
