@@ -1,4 +1,5 @@
 ﻿using Common.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
@@ -19,10 +20,15 @@ namespace MortgageAPI.Controllers
         }
         // GET: LeadsController/Details/5
         [HttpGet]
+        [Authorize(Policy = "AdminPolicy")]
+
         public async Task<List<LeadsDto>> Get()
         {
             return await service.GetAllAsync();
         }
+
+        [Authorize(Policy = "AdminPolicy")]
+
         [HttpGet("{id}")]
         public async Task<LeadsDto> Get(int id)
         {
@@ -34,9 +40,12 @@ namespace MortgageAPI.Controllers
         //    await service.AddAsync( leadsDto);
         //}
 
+
         [HttpPost]
+
         public async Task<IActionResult> AddItemAsync([FromBody] LeadsDto leadsDto)
         {
+            Console.WriteLine("in post customer");
             var addedObject = await service.AddAsync(leadsDto);
             return Ok(addedObject);
         }
@@ -49,6 +58,9 @@ namespace MortgageAPI.Controllers
         //}
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "AdminPolicy")]
+
+
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] LeadsDto leadsDto)
         {
             var updatedObject = await service.UpdateItemAsync(id, leadsDto);
@@ -56,6 +68,7 @@ namespace MortgageAPI.Controllers
         }
 
 
+        [Authorize(Policy = "AdminPolicy")]
 
         [HttpDelete("{id}")]
         public async Task DeleteAsync(int id)

@@ -18,6 +18,7 @@ namespace Repositories
             services.AddScoped<IRepository<CustomerTasks>, CustomerTaskRepository>();
             services.AddScoped<IRepository<Leads>, LeadsRepository>();
             services.AddScoped<IRepository<DocumentTypes>, DocumentTypesRepository>();
+            services.AddScoped<IRepository<Notification>, NotificationRepository>();
             return services;
          }
      

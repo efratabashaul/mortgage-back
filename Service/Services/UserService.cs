@@ -3,13 +3,6 @@ using Common.Entities;
 using Repositories.Entities;
 using Repositories.Interface;
 using Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Service.Services
 {
     public class UserService :ILoginService //IService<UsersDto>
@@ -68,6 +61,9 @@ namespace Service.Services
             return _mapper.Map<UsersDto>(_repository.getUserByLogin(email, password));
         }
 
-
+        public UsersDto SetPassword(string Email)
+        {
+            return _mapper.Map<UsersDto>(_repository.getUserEmail(Email));
+        }
     }
 }

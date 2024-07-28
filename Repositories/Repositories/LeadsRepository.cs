@@ -55,6 +55,7 @@ namespace Repositories.Repositories
             await _context.save();
         }
 
+
         public async Task UpdateAsync(int id, Leads entity)
         {
             Console.WriteLine(entity);

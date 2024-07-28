@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.Entities
 {
-    public enum Status { Pending, Completed };
+    public enum Status { Empty, Pending, Completed };
     public class CustomerTasks
     {
         public int Id { get; set; }
@@ -19,9 +19,6 @@ namespace Repositories.Entities
         public DateTime? Due_date { get; set; }
         public DateTime? Created_at { get; set; }= DateTime.Now;
         public DateTime? Updated_at { get; set; } = DateTime.Now;
-
-        //[ForeignKey("CustomerId")]
-        //public int CustomerId { get; set; }
 
         [ForeignKey("DocumentTypeId")]
         public int DocumentTypes { get; set; }

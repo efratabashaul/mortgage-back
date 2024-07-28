@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using Repositories.Entities;
 using Repositories.Interface;
+using MailKit.Net.Smtp;
 
 namespace Service.Services
 {
@@ -43,7 +44,7 @@ namespace Service.Services
             //
             //
             // };
-
+            /* Click <a href='http://localhost:4200/magic-link?token={token}&id={id}' style='color: #ff7300;'>here</a> to log in.*/
 
             message.Body = new TextPart("html")
             {
@@ -67,7 +68,8 @@ namespace Service.Services
                                         Welcome!
                                     </h2>
                                     <p style='font-family: Arial, sans-serif; font-size: 16px;'>
-                                        Click <a href='http://localhost:4200/magic-link?token={token}&id={id}' style='color: #ff7300;'>here</a> to log in.
+                                        Click <a href='http://localhost:4200/leadLogin' style='color: #ff7300;'>here</a> to log in.
+
                                     </p>
                                 </td>
                             </tr>
@@ -93,5 +95,82 @@ namespace Service.Services
                 await client.DisconnectAsync(true);
             }
         }
+        public async Task SendMailingList(List<string>recipients, string subject, string body)
+        {
+            if (subject == "")
+                subject = " ";
+            if(body =="")
+                body= " ";
+            int batchSize = 100; // size of the group according to the limitation of the server
+            List<List<string>> batches = CreateBatches(recipients, batchSize);
+
+            try
+            {
+                foreach (var batch in batches)
+                {
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress("Y.B Mortgages", _options.From));
+                    message.Subject = subject;
+
+                    var bodyBuilder = new BodyBuilder { TextBody = body };
+                    message.Body = bodyBuilder.ToMessageBody();
+
+                    foreach (var recipient in batch)
+                    {
+                        message.Bcc.Add(new MailboxAddress("", recipient));
+                    }
+
+                    using (var client = _mailKitProvider.GetSmtpClient())
+                    {
+                        await client.SendAsync(message);
+                        await client.DisconnectAsync(true);
+                    }
+                }
+
+                Console.WriteLine("Emails sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to send email. Error: " + ex.Message);
+            }
+        }
+
+        public async Task SendGeneral(string toEmail, string subject, string body)
+        {
+            try
+            {
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress("Y.B Mortgages", _options.From));
+                    message.Subject = subject;
+                //var bodyBuilder = new BodyBuilder { TextBody = body };
+                //message.Body = bodyBuilder.ToMessageBody();
+                message.Body = new TextPart("html")
+                {
+                    Text = body
+                };
+                message.To.Add(new MailboxAddress("", toEmail));
+
+                    using (var client = _mailKitProvider.GetSmtpClient())
+                    {
+                        await client.SendAsync(message);
+                        await client.DisconnectAsync(true);
+                    }
+                Console.WriteLine("Emails sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to send email. Error: " + ex.Message);
+            }
+        }
+
+        static List<List<string>> CreateBatches(List<string> source, int batchSize)
+        {
+            var batches = new List<List<string>>();
+            for (int i = 0; i < source.Count; i += batchSize)
+            {
+                batches.Add(source.GetRange(i, Math.Min(batchSize, source.Count - i)));
+            }
+            return batches;
+        }
     }
-}
+    }

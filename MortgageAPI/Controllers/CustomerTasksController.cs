@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Common.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entities;
@@ -15,36 +16,34 @@ namespace MortgageAPI.Controllers
     public class CustomerTasksControllercs: ControllerBase
     {
         private readonly IService<CustomerTasksDto> service;
-        private readonly IMapper _mapper;
-        private readonly IRepository<CustomerTasks> _repository;
-
-        // GET: CustomersController
-        public CustomerTasksControllercs(IService<CustomerTasksDto> service, IRepository<CustomerTasks> repository, IMapper mapper)
+        
+        public CustomerTasksControllercs(IService<CustomerTasksDto> service)
         {
             this.service = service;
-            _mapper = mapper;
-            _repository = repository;
+            
         }
-        // GET: CustomersController/Details/5
+        
         [HttpGet]
+        [Authorize]
+
         public async Task<List<CustomerTasksDto>> Get()
         {
             return await service.GetAllAsync();
         }
         [HttpGet("{id}")]
+        [Authorize]
+
         public async Task<CustomerTasksDto> Get(int id)
         {
             return await service.GetAsync(id);
         }
 
-       
 
         [HttpGet("customerId/{id}")]
+        [Authorize]
+
         public async Task<List<CustomerTasksDto>> GetByCustomer(int id)
         {
-            //var allcustomerTask = await _repository.GetAllAsync();
-            //var customerTaskId= allcustomerTask.Where(x=>x.CustomerId==id).ToList();
-            //return _mapper.Map<List<CustomerTasksDto>>(customerTaskId);
             var allcustomerTask = await Get();
             var customerTaskId = allcustomerTask.Where(x => x.Customer_Id == id).ToList();
             return customerTaskId;
@@ -71,6 +70,8 @@ namespace MortgageAPI.Controllers
         //}
 
         [HttpPut("{id}")]
+        [Authorize]
+
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] CustomerTasksDto customerTasksDto)
         {
             var updatedObject = await service.UpdateItemAsync(id, customerTasksDto);

@@ -23,6 +23,8 @@ namespace Service
             services.AddScoped<IService<CustomerTasksDto>,CustomerTaskService>();
             services.AddScoped<IService<LeadsDto>, LeadsService>();
             services.AddScoped<IService<DocumentTypesDto>, DocumentTypesService>();
+            services.AddScoped<IService<NotificationDto>, NotificationService>();
+
             services.AddAutoMapper(typeof(MappeProfile));
             return services;
         }
