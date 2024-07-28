@@ -25,7 +25,7 @@ namespace DataContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            // optionsBuilder.UseSqlServer("Data Source=DESKTOP-TP8FO8E\\SQLEXPRESS02;Initial Catalog=commemorative_project;Integrated Security=True;TrustServerCertificate=True");
-            optionsBuilder.UseSqlServer("Data Source=localhost,1433;Initial Catalog=mortgageDatabase;Integrated Security=False;User ID=sa;Password=mortgage$100;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Data Source=localhost,1433;Initial Catalog=mortgageDatabase;Integrated Security=False;User ID=sa;Password=mortgageTeam$100;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True;");
 
         }
     }
