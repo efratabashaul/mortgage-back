@@ -42,10 +42,10 @@ namespace MortgageAPI.Controllers
             return this.service.Login(Email, Password);
         }
 
-        [HttpGet("{email}/{password}")]
-        public async Task<ActionResult> Login(string email,string password)
+        [HttpPost("login")]
+        public async Task<ActionResult> Login(UsersDto user)
         {
-            var u = await Authenticate(email, password);
+            var u = await Authenticate(user.Email, user.Password);
             if (u != null)
             {
                 var token =await GenerateAsync(u);

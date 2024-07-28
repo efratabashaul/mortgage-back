@@ -44,11 +44,48 @@ namespace MortgageAPI.Controllers
             var token = GenerateToken();
             var lead = await _service.GetAsync(id);
             lead.Token = token;
-            lead.Expiration = DateTime.UtcNow.AddMinutes(15);
+            lead.Expiration = DateTime.UtcNow.AddMinutes(3);
             await _service.UpdateAsync(id, _mapper.Map<LeadsDto>(lead));
-            await _emailService.SendMagicLink(lead.Email, token,id);
-            Console.WriteLine("in post magic link");
+            string subject = "Your Magic Login Link";
+            string body = $@"
+        <html>
+        <body style='margin: 0; padding: 0;'>
+            <table width='100%' cellspacing='0' cellpadding='0'>
+                <tr>
+                    <td align='center' style='padding: 10px;'>
+                        <table width='600' cellspacing='0' cellpadding='0' style='border: 1px solid #cccccc;'>
+                            <tr>
+                                <td align='center' style='padding: 40px 0 30px 0; background-color: #f2f2f2;'>
+                                    <h1 style='margin: 0; font-size: 48px; font-family: Arial, sans-serif;'>
+                                        <span style='color: rgb(183, 182, 182);'>Y</span>.<span style='color: rgba(255, 68, 0, 0.749);'>B</span>
+                                    </h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align='center' style='padding: 30px; background-color: #ffffff;'>
+                                    <h2 style='color: rgba(255, 115, 0, 0.955); font-size: 32px; font-family: Arial, sans-serif;'>
+                                        Welcome!
+                                    </h2>
+                                    <p style='font-family: Arial, sans-serif; font-size: 16px;'>
+                                        Click <a href=`http://localhost:4200/magic-link?token=${token}&id=${id}` style='color: #ff7300;'>here</a> to log in.
 
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align='center' style='padding: 20px; background-color: #f2f2f2;'>
+                                    <p style='margin: 0; font-family: Arial, sans-serif; font-size: 12px; color: #666666;'>
+                                        © Your App. All rights reserved.
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>";
+            await _emailService.SendGeneral(lead.Email, subject, body);
             return Ok("Magic link sent.");
         }
 
