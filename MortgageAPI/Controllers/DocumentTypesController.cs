@@ -31,6 +31,17 @@ namespace MortgageAPI.Controllers
         {
             return await service.GetAsync(id);
         }
+
+
+        [HttpGet("TypesDocument/{id}")]
+        public async Task<List<DocumentTypesDto>> GetAllDocumentByTransactionType(int id)
+        {
+            var allDocumentsType = await service.GetAllAsync();
+            var documents = allDocumentsType.Where(i => (int)i.Transaction_Type ==  id).ToList();
+            return documents;
+        }
+
+
         //[HttpPost]
         //public async Task Post([FromBody] DocumentTypesDto documentTypesDto)
         //{
