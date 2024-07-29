@@ -144,6 +144,7 @@ namespace Service.Services
                     using (var response = await dbx.Files.DownloadAsync(fileMetadata.PathLower))
                     {
                         var content = await response.GetContentAsByteArrayAsync();
+                        Console.WriteLine(fileMetadata.Name);
                         return new FileDownloadResult
                         {
                             Content = content,
