@@ -42,14 +42,27 @@ namespace MortgageAPI.Controllers
             return this.service.Login(Email, Password);
         }
 
-        [HttpPost("login")]
-        public async Task<ActionResult> Login(UsersDto user)
+        //[HttpPost("login")]
+        //public async Task<ActionResult> Login(UsersDto user)
+        //{
+        //    var u = await Authenticate(user.Email, user.Password);
+        //    if (u != null)
+        //    {
+        //        var token = await GenerateAsync(u);
+        //        return Ok(token);//token
+        //    }
+        //    return NotFound("user not found");
+        //}
+
+
+        [HttpGet("{email}/{password}")]
+        public async Task<ActionResult> Login(string email, string password)
         {
-            var u = await Authenticate(user.Email, user.Password);
+            var u = await Authenticate(email, password);
             if (u != null)
             {
-                var token =await GenerateAsync(u);
-                return Ok( token );//token
+                var token = await GenerateAsync(u);
+                return Ok(token);//token
             }
             return NotFound("user not found");
         }
@@ -142,4 +155,4 @@ namespace MortgageAPI.Controllers
 
     }
 }
->>>>>>> 74b1119a4f8de6e1eebee33c02180bbd0bcb3971
+

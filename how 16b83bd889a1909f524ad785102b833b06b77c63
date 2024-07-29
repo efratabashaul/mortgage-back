@@ -1,0 +1,273 @@
+[33mcommit c1e06deebb8e7f3a3a388f6cebbaa8e9fe467097[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: tehila3266 <tehila3266@gmail.com>
+Date:   Sun Jul 28 10:18:02 2024 +0200
+
+    userConrollerChanges
+
+[33mcommit 1d985b5c462ff57226d02d10f5ec79435d50232b[m
+Merge: 16b83bd 4a3de97
+Author: tehila3266 <tehila3266@gmail.com>
+Date:   Sun Jul 28 10:16:17 2024 +0200
+
+    userController
+
+[33mcommit 16b83bd889a1909f524ad785102b833b06b77c63[m
+Merge: 065015d 74b1119
+Author: tehila3266 <tehila3266@gmail.com>
+Date:   Sun Jul 28 09:54:03 2024 +0200
+
+    merge add-document
+
+[33mcommit 065015dd57687dbf3ae0c4f31dc29de9d9f32b06[m
+Author: tehila3266 <tehila3266@gmail.com>
+Date:   Sun Jul 28 09:43:58 2024 +0200
+
+    func addDocument
+
+[33mcommit 4a3de97bfd52738cae784256639b49a4fab19d30[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: mirimoshe <mirimoshe2004@gmail.com>
+Date:   Sun Jul 28 09:53:57 2024 +0300
+
+    change login function
+
+[33mcommit 74b1119a4f8de6e1eebee33c02180bbd0bcb3971[m
+Author: SariCohen2 <s0556774746r@gmail.com>
+Date:   Thu Jul 25 11:52:19 2024 +0300
+
+    Added alert table structure to SQL documentation
+
+[33mcommit 9cd6e013c90dcfbd6eb339d816486db011f8919d[m
+Merge: e898f53 7ee7f19
+Author: SariCohen2 <s0556774746r@gmail.com>
+Date:   Thu Jul 25 10:52:59 2024 +0300
+
+    Merge branch 'main' of https://github.com/diversi-tech/mortgage-back
+
+[33mcommit e898f53f757d0c11a259a76641a79d46b16175a6[m
+Author: SariCohen2 <s0556774746r@gmail.com>
+Date:   Thu Jul 25 10:52:54 2024 +0300
+
+    add notification option
+
+[33mcommit 7ee7f1917510748e18e92f8a7ee187f665707f3f[m
+Merge: acff732 b9d2e5d
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Thu Jul 25 10:36:48 2024 +0300
+
+    Merge branch 'main' of https://github.com/diversi-tech/mortgage-back
+
+[33mcommit acff732df408f57004cc92268e50961ccfb3f4e4[m
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Thu Jul 25 10:35:39 2024 +0300
+
+    send token every request
+
+[33mcommit b9d2e5dcf920fe8b3d9bddb7627d63613062a5bb[m
+Merge: fd7f365 ddc88be
+Author: sariGlik <s0533174617@gmail.com>
+Date:   Mon Jul 22 12:49:00 2024 +0300
+
+    Merge branch 'main' of https://github.com/diversi-tech/mortgage-back
+
+[33mcommit fd7f3654df4773e0cfc744a3896a5ea612891734[m
+Author: sariGlik <s0533174617@gmail.com>
+Date:   Mon Jul 22 12:48:30 2024 +0300
+
+    fix and add func for login and resrtPsassword
+
+[33mcommit ddc88bebaab2360ddcb75f57a205ea5aae6c507e[m
+Author: efratabashaul <96369767+efratabashaul@users.noreply.github.com>
+Date:   Sun Jul 21 22:21:04 2024 +0300
+
+    Create README.md
+    
+    an explanation file
+
+[33mcommit 72ddb4cd72bf8abf5b766132992b85c48e964ae7[m
+Merge: 3bf32b7 91cf2cc
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Sun Jul 21 15:58:42 2024 +0300
+
+    Merge branch 'main' of https://github.com/diversi-tech/mortgage-back
+
+[33mcommit 3bf32b76491387b055435473a5439e4266a8c75f[m
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Sun Jul 21 15:58:07 2024 +0300
+
+    add customer id to token
+
+[33mcommit 91cf2ccdf052fd395e1578ea181a9cfb845c50b7[m
+Merge: dd7859b 915e5ce
+Author: SariCohen2 <s0556774746r@gmail.com>
+Date:   Sun Jul 21 08:56:47 2024 +0300
+
+    Merge branch 'main' of https://github.com/diversi-tech/mortgage-back
+
+[33mcommit dd7859bed6a75103b6eacecd1e4df065e6631188[m
+Author: SariCohen2 <s0556774746r@gmail.com>
+Date:   Sun Jul 21 08:56:28 2024 +0300
+
+    Cleaning up the file upload code, and fixing a convention.
+
+[33mcommit 915e5cea46eb50bc7e89997483c48b3767c5d7c3[m
+Merge: 5abefeb 326aa0f
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Thu Jul 18 09:46:55 2024 +0300
+
+    Merge branch 'main' of https://github.com/diversi-tech/mortgage-back
+
+[33mcommit 5abefeb5a97f8094f33510a486962ee08d976d9a[m
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Thu Jul 18 09:45:35 2024 +0300
+
+    fixes in mailing-list
+
+[33mcommit 326aa0f96a4b8179d60f2b7bb8c542b6378497b6[m
+Author: sariGlik <s0533174617@gmail.com>
+Date:   Wed Jul 17 16:16:27 2024 +0300
+
+    send email for reset password
+
+[33mcommit 4e50aa1d7f66b096d2005a2726cbd2c10f01d311[m
+Merge: 3776b6c e3c62e3
+Author: SariCohen2 <s0556774746r@gmail.com>
+Date:   Wed Jul 17 00:49:17 2024 +0300
+
+    add download from dropbox
+
+[33mcommit 3776b6cd1d70fea8c0b5fe001e3e82344265df62[m
+Author: SariCohen2 <s0556774746r@gmail.com>
+Date:   Wed Jul 17 00:44:20 2024 +0300
+
+    add download functionality
+
+[33mcommit e3c62e36e8a05425ee695ee3d836dd93767c845f[m
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Tue Jul 16 19:45:20 2024 +0300
+
+    send email general
+
+[33mcommit 1b4b9aaacef60c1c5eee333b91b9aaa05900d131[m
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Tue Jul 16 19:20:39 2024 +0300
+
+    mailing list
+
+[33mcommit 7dcf13595d88820ef7a0ea610fdc865217dc0c46[m
+Author: MalkiFr <malki48474@gmail.com>
+Date:   Mon Jul 15 11:31:25 2024 +0300
+
+    Repair program file
+
+[33mcommit eb89426adb09547f7f5e7989b7a5a2e39ec8df7c[m
+Merge: b27e7af f97a535
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Mon Jul 15 10:51:48 2024 +0300
+
+    Merge branch 'main' of https://github.com/diversi-tech/mortgage-back
+
+[33mcommit b27e7afcc196ce47b0a1b01107d046024d93a226[m
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Mon Jul 15 10:50:56 2024 +0300
+
+    token
+
+[33mcommit 8d7a9f2ef43fb3757af03e1d8733f336fee9c96f[m
+Merge: f3c63e5 8b05ce0
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Mon Jul 15 10:49:37 2024 +0300
+
+    create token in login
+
+[33mcommit f97a5357303a1b11bd4d2d336ad128b4b2af9423[m
+Author: MalkiFr <malki48474@gmail.com>
+Date:   Mon Jul 15 10:44:02 2024 +0300
+
+    update Status enum (add new value- Empty)
+
+[33mcommit f3c63e5b12cd5687a8b7d7439f56117511d0eb0d[m
+Author: efratabashaul <5780603i@gmail.com>
+Date:   Mon Jul 15 10:37:38 2024 +0300
+
+    login and token
+
+[33mcommit 8b05ce0c2d4c784741bdd8929b8757c5dde748c2[m
+Author: SariCohen2 <s0556774746r@gmail.com>
+Date:   Sun Jul 14 11:15:59 2024 +0300
+
+    Added an option to upload files to Dropbox without needing to change the token
+
+[33mcommit 85e49b7cba18c73c7d09911140c96231338c0a36[m
+Merge: 7e348a7 2fe9a4e
+Author: SariCohen2 <s0556774746r@gmail.com>
+Date:   Tue Jul 9 13:53:31 2024 +0300
+
+    Merge branch 'main' of https://github.com/diversi-tech/mortgage-back
+
+[33mcommit 7e348a78f98bc1e0194d62ab806560dc1d8cec96[m
+Author: SariCohen2 <s0556774746r@gmail.com>
+Date:   Tue Jul 9 13:50:00 2024 +0300
+
+    add upload-files-option to dropbox
+
+[33mcommit 9300b0bb7851c4ee4592a1b8873d621932d8c16e[m
+Author: yael <5780603i@gmail.com>
+Date:   Tue Jul 9 12:29:35 2024 +0300
+
+    changes from gittt
+
+[33mcommit 682c998ac5ae66cae65f0d2b00be84f2153bc836[m
+Merge: eabc8c8 2fe9a4e
+Author: yael <5780603i@gmail.com>
+Date:   Tue Jul 9 12:29:16 2024 +0300
+
+    changes from git
+
+[33mcommit eabc8c8a18718d36dc15dc37fe32cf9842d96880[m
+Author: yael <5780603i@gmail.com>
+Date:   Tue Jul 9 11:53:15 2024 +0300
+
+    i dont knowww
+
+[33mcommit 7cb7dfc13bc76e0cbae73d1396e81ddef8bd72f0[m
+Merge: 6824fe5 9957d29
+Author: yael <5780603i@gmail.com>
+Date:   Tue Jul 9 11:51:19 2024 +0300
+
+    i dont know
+
+[33mcommit 2fe9a4eba5bf05d657cd4aa4d279545607ec2528[m
+Author: Rachel Adler <3133rachel@gmail.com>
+Date:   Tue Jul 9 10:43:24 2024 +0300
+
+    add sql changes
+
+[33mcommit c7b5c9133b5fe274e70e8f5266258f70547aa26a[m
+Merge: 2a34f86 1444e95
+Author: avitalBrill <a0556766939@gmail.com>
+Date:   Tue Jul 9 09:41:01 2024 +0300
+
+    conflict resolve
+
+[33mcommit 2a34f86f15c182c3040f9131f86cc4fee38998c4[m
+Author: avitalBrill <a0556766939@gmail.com>
+Date:   Tue Jul 9 09:29:44 2024 +0300
+
+    first commit
+
+[33mcommit 1444e952f4b01205669caf69fa209532b5e827b5[m
+Author: mirimoshe <mirimoshe2004@gmail.com>
+Date:   Mon Jul 8 12:19:59 2024 +0300
+
+    update server to be without errors
+
+[33mcommit a2279d612913506efe050ac42bb5dd98e58341ed[m
+Merge: 0ea0dff 9957d29
+Author: mirimoshe <mirimoshe2004@gmail.com>
+Date:   Sun Jul 7 14:28:09 2024 +0300
+
+    Merge branch 'main' of https://github.com/diversi-tech/mortgage-back
+
+[33mcommit 0ea0dff066771638a50993366e51f9d6d38d53e7[m[33m ([m[1;31morigin/loginBranch[m[33m)[m
+Author: mirimoshe <mirimoshe2004@gmail.com>
+Date:   Sun Jul 7 14:25:02 202

@@ -40,6 +40,8 @@ namespace MortgageAPI.Controllers
             var documents = allDocumentsType.Where(i => (int)i.Transaction_Type ==  id).ToList();
             return documents;
         }
+
+
         //[HttpPost]
         //public async Task Post([FromBody] DocumentTypesDto documentTypesDto)
         //{
