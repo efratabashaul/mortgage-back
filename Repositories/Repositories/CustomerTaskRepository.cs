@@ -56,9 +56,12 @@ namespace Repositories.Repositories
             customerTask.Task_description=entity.Task_description;
             customerTask.Document_type_id=entity.Document_type_id;
             customerTask.Document_path=entity.Document_path;
+            customerTask.Document_path2 = entity.Document_path2;
             customerTask.status = entity.status;
+            customerTask.status2= entity.status2;
             customerTask.Due_date=entity.Due_date;
             customerTask.Created_at=entity.Created_at;
+            customerTask.Id2 = entity.Id2;
             customerTask.Updated_at= DateTime.Now;
             await _context.save();
         }
@@ -71,6 +74,10 @@ namespace Repositories.Repositories
             customerTask.Document_type_id = entity.Document_type_id;
             customerTask.Document_path = entity.Document_path;
             customerTask.status = entity.status;
+            customerTask.status2= entity.status2;
+            Console.WriteLine("customerTask.status2="+ customerTask.status2);
+            customerTask.Id2= entity.Id2;
+            customerTask.Document_path2= entity.Document_path2;
             customerTask.Due_date = entity.Due_date;
             customerTask.Created_at = entity.Created_at;
             customerTask.Updated_at =DateTime.Now;

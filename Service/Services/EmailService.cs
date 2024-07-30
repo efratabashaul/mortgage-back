@@ -68,7 +68,7 @@ namespace Service.Services
                                         Welcome!
                                     </h2>
                                     <p style='font-family: Arial, sans-serif; font-size: 16px;'>
-                                        Click <a href='http://localhost:4200/leadLogin' style='color: #ff7300;'>here</a> to log in.
+                                        Click <a href='http://localhost:4200/lead' style='color: #ff7300;'>here</a> to log in.
 
                                     </p>
                                 </td>

@@ -41,6 +41,11 @@ namespace Repositories.Repositories
             return await _context.Leads.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public Task<List<Leads>> GetDocumentsType(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async  Task Post(Leads item)
         {
             item.Created_at=DateTime.Now;

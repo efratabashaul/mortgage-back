@@ -85,6 +85,17 @@ namespace MortgageAPI.Controllers
         {
             await service.DeleteAsync(id);
         }
+        [HttpPut()]
+        public async Task<IActionResult> UpdateItemAsync([FromBody] CustomerTasksDto[] documents)
+        {
+
+            foreach (var document in documents)
+            {
+                Console.WriteLine("document.status2"+document.status2);
+                await service.UpdateItemAsync(document.Id, document);
+            }
+            return Ok();
+        }
     }
 }
 
