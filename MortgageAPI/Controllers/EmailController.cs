@@ -44,7 +44,7 @@ namespace MortgageAPI.Controllers
             var token = GenerateToken();
             var lead = await _service.GetAsync(id);
             lead.Token = token;
-            lead.Expiration = DateTime.UtcNow.AddMinutes(3);
+            lead.Expiration = DateTime.UtcNow.AddMinutes(15);
             await _service.UpdateAsync(id, _mapper.Map<LeadsDto>(lead));
             string subject = "Your Magic Login Link";
             string body = $@"
@@ -67,7 +67,7 @@ namespace MortgageAPI.Controllers
                                         Welcome!
                                     </h2>
                                     <p style='font-family: Arial, sans-serif; font-size: 16px;'>
-                                        Click <a href=`http://localhost:4200/magic-link?token=${token}&id=${id}` style='color: #ff7300;'>here</a> to log in.
+                                        Click <a href=`http://localhost:4200/lead/magic-link?token={token}&id={id}` style='color: #ff7300;'>here</a> to log in.
 
                                     </p>
                                 </td>
@@ -118,7 +118,7 @@ namespace MortgageAPI.Controllers
             await _emailService.SendGeneral(toEmail, subject, body);
         }
 
-        [Authorize(Policy = "AdminPolicy")]
+        //[Authorize(Policy = "AdminPolicy")]
 
         [HttpGet("validate-magic-link/{id}")]
         public async Task<IActionResult> ValidateMagicLink(int id)
@@ -132,7 +132,7 @@ namespace MortgageAPI.Controllers
             return BadRequest("Token is invalid or expired.");
         }
 
-        [Authorize(Policy = "AdminPolicy")]
+        //[Authorize(Policy = "AdminPolicy")]
 
         private async Task<bool> IsTokenValid(LeadsDto lead)
         {
