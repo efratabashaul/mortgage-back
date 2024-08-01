@@ -59,10 +59,9 @@ namespace MortgageAPI.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Policy = "AdminPolicy")]
-
-
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] LeadsDto leadsDto)
         {
+            Console.WriteLine("in put lead");
             var updatedObject = await service.UpdateItemAsync(id, leadsDto);
             return Ok(updatedObject);
         }

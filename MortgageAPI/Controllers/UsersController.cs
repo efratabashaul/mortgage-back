@@ -125,6 +125,7 @@ namespace MortgageAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] UsersDto usersDto)
         {
+            Console.WriteLine("ccjcjcj");
             var updatedObject = await service.UpdateItemAsync(id, usersDto);
             return Ok(updatedObject);
         }

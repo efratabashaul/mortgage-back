@@ -63,6 +63,7 @@ namespace Repositories.Repositories
 
         public async Task<Notification> UpdateItemAsync(int id, Notification entity)
         {
+            Console.WriteLine();
             var notification = await GetAsync(id);
             notification.Message = entity.Message;
             notification.created_at = DateTime.Now;

@@ -78,8 +78,6 @@ namespace MortgageAPI.Controllers
             return Ok(updatedObject);
         }
 
-
-
         [HttpDelete("{id}")]
         public async Task DeleteAsync(int id)
         {

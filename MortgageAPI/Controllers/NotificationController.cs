@@ -40,11 +40,24 @@ public class NotificationController : ControllerBase
             return Ok(addedObject);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] NotificationDto customersDto)
+        public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] NotificationDto customerDto)
         {
-            Console.WriteLine("in put notifi"+customersDto.IsRead);
-            var updatedObject = await service.UpdateItemAsync(id, customersDto);
+            Console.WriteLine("in put notifi"+ customerDto.IsRead);
+            var updatedObject = await service.UpdateItemAsync(id, customerDto);
             return Ok(updatedObject);
+        }
+        [HttpPut()]
+        public async Task<IActionResult> UpdateItemsToReadAsync([FromBody] NotificationDto[] customersDto)
+        {
+            NotificationDto[] updated=[];
+            foreach (var item in customersDto)
+            {
+                Console.WriteLine(item.Message);
+                item.IsRead = true;
+                var updatedObject = await service.UpdateItemAsync(item.ID, item);
+                updated.Append(updatedObject);
+            }
+            return Ok(updated);
         }
 
         [HttpDelete("{id}")]
