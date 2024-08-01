@@ -27,13 +27,15 @@ namespace MortgageAPI.Controllers
         private readonly HttpClient _httpClient;
         private readonly ILoginService service;
         private IConfiguration _configuration;
+        private readonly IService<LeadsDto> leadService;
 
         // GET: CustomersController
-        public UsersController(ILoginService service, IConfiguration config, HttpClient httpClient)
+        public UsersController(ILoginService service, IConfiguration config, HttpClient httpClient, IService<LeadsDto> leadService)
         {
             this.service = service;
             this._configuration = config;
             _httpClient = httpClient;
+            this.leadService = leadService;
         }
 
 
@@ -54,10 +56,11 @@ namespace MortgageAPI.Controllers
             return NotFound("user not found");
         }
 
-        private async Task<string> GenerateAsync(UsersDto user)
+        [HttpPost("token")]
+        public async Task<string> GenerateAsync(UsersDto user)
         {
             int customerId = -1;
-            if (user.Role==Repositories.Entities.Role.Customer)
+            if (user.Role == Repositories.Entities.Role.Customer)
             {
                 var response = await _httpClient.GetAsync($"https://localhost:7055/api/Customers/userId{user.Id}");
 
@@ -83,7 +86,7 @@ namespace MortgageAPI.Controllers
             };
             var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddMinutes(180),
                 signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
@@ -104,23 +107,38 @@ namespace MortgageAPI.Controllers
         {
             return await service.GetAsync(id);
         }
-
         [Authorize(Policy = "AdminPolicy")]
 
         [HttpPost]
         public async Task<IActionResult> AddItemAsync([FromBody] UsersDto usersDto)
         {
-            
+
+            return await AddUserPrivate(usersDto);
+        }
+
+        [HttpPost("Lead{leadId}")]
+        public async Task<IActionResult> AddItemAsync([FromBody] UsersDto usersDto, int leadId)
+        {
+            var leadsController = new LeadsController(leadService);
+            LeadsDto leadDto = await leadsController.Get(leadId);
+            if (leadDto != null)
+            {
+                if (leadDto.Expiration >= DateTime.Now)
+                {
+                    return await AddUserPrivate(usersDto);
+                }
+                return BadRequest("The lead has expired and cannot be used to add a new user.");
+            }
+
+            return BadRequest("The lead does not exist.");
+        }
+
+        private async Task<IActionResult> AddUserPrivate(UsersDto usersDto)
+        {
             var addedObject = await service.AddAsync(usersDto);
             return Ok(addedObject);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task Put(int id,[FromForm] UsersDto usersDto)
-        //{
-        //    await service.UpdateAsync(id,usersDto);
-        //}
-        [Authorize(Policy = "AdminPolicy")]
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] UsersDto usersDto)
