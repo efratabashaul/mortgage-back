@@ -27,7 +27,6 @@ namespace MortgageAPI.Controllers
             return await service.GetAllAsync();
         }
 
-        [Authorize(Policy = "AdminPolicy")]
 
         [HttpGet("{id}")]
         public async Task<LeadsDto> Get(int id)
@@ -58,7 +57,7 @@ namespace MortgageAPI.Controllers
         //}
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize]
 
 
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] LeadsDto leadsDto)

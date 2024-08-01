@@ -51,7 +51,7 @@ namespace MortgageAPI.Controllers
             if (u != null)
             {
                 var token =await GenerateAsync(u);
-                return Ok( token );//token
+                return Ok(new { token });//token
             }
             return NotFound("user not found");
         }
