@@ -1,4 +1,5 @@
 ﻿using Common.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entities;
@@ -19,12 +20,16 @@ public class NotificationController : ControllerBase
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminPolicy")]
+
         public async Task<List<NotificationDto>> Get()
         {
             Console.WriteLine("in moti controller");
             return await service.GetAllAsync();
         }
         [HttpGet("{userId}")]
+        [Authorize]
+
         public async Task<NotificationDto[]> Get(int userId)
         {
             var notifications = await service.GetAllAsync();
@@ -33,6 +38,8 @@ public class NotificationController : ControllerBase
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPolicy")]
+
         public async Task<IActionResult> AddItemAsync( NotificationDto notificationDto)
         {
             Console.WriteLine("in post notification");
@@ -40,6 +47,8 @@ public class NotificationController : ControllerBase
             return Ok(addedObject);
         }
         [HttpPut("{id}")]
+        [Authorize]
+
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] NotificationDto customersDto)
         {
             Console.WriteLine("in put notifi"+customersDto.IsRead);
@@ -48,6 +57,8 @@ public class NotificationController : ControllerBase
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "AdminPolicy")]
+
         public async Task DeleteAsync(int id)
         {
             await service.DeleteAsync(id);
