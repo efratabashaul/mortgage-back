@@ -28,10 +28,13 @@ namespace MortgageAPI.Controllers
         private readonly ILoginService service;
         private IConfiguration _configuration;
         private readonly IService<LeadsDto> leadService;
+        private readonly IService<CustomersDto> customerService;
+
 
         // GET: CustomersController
-        public UsersController(ILoginService service, IConfiguration config, HttpClient httpClient, IService<LeadsDto> leadService)
+        public UsersController(IService<CustomersDto> customerService,ILoginService service, IConfiguration config, HttpClient httpClient, IService<LeadsDto> leadService)
         {
+            this.customerService = customerService;
             this.service = service;
             this._configuration = config;
             _httpClient = httpClient;
@@ -47,30 +50,31 @@ namespace MortgageAPI.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] UsersDto user)
         {
-            var u = await Authenticate(user.Email, user.Password);
-            if (u != null)
+            var userToLogin = await Authenticate(user.Email, user.Password);
+            if (userToLogin != null)
             {
-                var token =await GenerateAsync(u);
-                return Ok(new { token });//token
+                var generateTokenResult = await GenerateAsync(userToLogin) as OkObjectResult;
+
+                if (generateTokenResult == null)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Token generation failed.");
+                }
+
+                return Ok(new { Token = generateTokenResult.Value });
             }
             return NotFound("user not found");
         }
 
         [HttpPost("token")]
-        public async Task<string> GenerateAsync(UsersDto user)
+        public async Task<ActionResult> GenerateAsync(UsersDto user)
         {
             int customerId = -1;
             if (user.Role == Repositories.Entities.Role.Customer)
             {
-                var response = await _httpClient.GetAsync($"https://localhost:7055/api/Customers/userId{user.Id}");
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return StatusCode((int)response.StatusCode).ToString();
-                }
-
-                var jsonString = await response.Content.ReadAsStringAsync();
-                customerId = JsonConvert.DeserializeObject<int>(jsonString);
+                var customerController = new CustomersController(customerService,leadService);
+                customerId = await customerController.GetByUserId(user.Id);
+                if(customerId==-1)
+                    return BadRequest("User not found.");
             }
 
             //מפתח להצפנה
@@ -88,7 +92,7 @@ namespace MortgageAPI.Controllers
                 claims,
                 expires: DateTime.Now.AddMinutes(180),
                 signingCredentials: credentials);
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return Ok( new JwtSecurityTokenHandler().WriteToken(token));
         }
 
 

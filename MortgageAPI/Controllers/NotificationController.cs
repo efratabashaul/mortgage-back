@@ -1,4 +1,5 @@
 ﻿using Common.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entities;
@@ -19,12 +20,16 @@ public class NotificationController : ControllerBase
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminPolicy")]
+
         public async Task<List<NotificationDto>> Get()
         {
             Console.WriteLine("in moti controller");
             return await service.GetAllAsync();
         }
         [HttpGet("{userId}")]
+        [Authorize]
+
         public async Task<NotificationDto[]> Get(int userId)
         {
             var notifications = await service.GetAllAsync();
@@ -33,6 +38,8 @@ public class NotificationController : ControllerBase
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPolicy")]
+
         public async Task<IActionResult> AddItemAsync( NotificationDto notificationDto)
         {
             Console.WriteLine("in post notification");
@@ -40,17 +47,19 @@ public class NotificationController : ControllerBase
             return Ok(addedObject);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] NotificationDto customerDto)
+
+        [Authorize]
+
+        public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] NotificationDto notificationsDto)
         {
-            Console.WriteLine("in put notifi"+ customerDto.IsRead);
-            var updatedObject = await service.UpdateItemAsync(id, customerDto);
+            var updatedObject = await service.UpdateItemAsync(id, notificationsDto);
             return Ok(updatedObject);
         }
         [HttpPut()]
-        public async Task<IActionResult> UpdateItemsToReadAsync([FromBody] NotificationDto[] customersDto)
+        public async Task<IActionResult> UpdateItemsToReadAsync([FromBody] NotificationDto[] notificationsDto)
         {
             NotificationDto[] updated=[];
-            foreach (var item in customersDto)
+            foreach (var item in notificationsDto)
             {
                 Console.WriteLine(item.Message);
                 item.IsRead = true;
@@ -61,6 +70,8 @@ public class NotificationController : ControllerBase
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "AdminPolicy")]
+
         public async Task DeleteAsync(int id)
         {
             await service.DeleteAsync(id);
