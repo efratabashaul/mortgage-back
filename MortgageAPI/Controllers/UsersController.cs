@@ -50,10 +50,10 @@ namespace MortgageAPI.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] UsersDto user)
         {
-            var u = await Authenticate(user.Email, user.Password);
-            if (u != null)
+            var userToLogin = await Authenticate(user.Email, user.Password);
+            if (userToLogin != null)
             {
-                var generateTokenResult = await GenerateAsync(user) as OkObjectResult;
+                var generateTokenResult = await GenerateAsync(userToLogin) as OkObjectResult;
 
                 if (generateTokenResult == null)
                 {
@@ -75,15 +75,6 @@ namespace MortgageAPI.Controllers
                 customerId = await customerController.GetByUserId(user.Id);
                 if(customerId==-1)
                     return BadRequest("User not found.");
-                //var response = await _httpClient.GetAsync($"https://localhost:7055/api/Customers/userId{user.Id}");
-
-                //if (!response.IsSuccessStatusCode)
-                //{
-                //return StatusCode((int)response.StatusCode).ToString();
-                //}
-
-                //var jsonString = await response.Content.ReadAsStringAsync();
-                //customerId = JsonConvert.DeserializeObject<int>(jsonString);
             }
 
             //מפתח להצפנה
