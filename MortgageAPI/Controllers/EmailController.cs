@@ -102,11 +102,21 @@ namespace MortgageAPI.Controllers
 
         [HttpPost("send-mailing-list/{recipients}")]
         [Authorize(Policy = "AdminPolicy")]
-
-        public async Task SendMailingList(string recipients,  [FromBody] EmailRequest emailRequest)
+        public async Task<IActionResult> SendMailingList(string recipients, [FromBody] EmailRequest emailRequest)
         {
+            if (string.IsNullOrWhiteSpace(recipients))
+            {
+                return BadRequest("Recipients list is empty.");
+            }
+
             var recipientList = recipients.Split(',').ToList();
+            if (recipientList.Count == 0)
+            {
+                return BadRequest("No valid recipients.");
+            }
+
             await _emailService.SendMailingList(recipientList, emailRequest.Subject, emailRequest.Body);
+            return Ok();
         }
 
 
@@ -118,7 +128,6 @@ namespace MortgageAPI.Controllers
             await _emailService.SendGeneral(toEmail, subject, body);
         }
 
-        //[Authorize(Policy = "AdminPolicy")]
 
         [HttpGet("validate-magic-link/{id}")]
         public async Task<IActionResult> ValidateMagicLink(int id)
@@ -132,7 +141,6 @@ namespace MortgageAPI.Controllers
             return BadRequest("Token is invalid or expired.");
         }
 
-        //[Authorize(Policy = "AdminPolicy")]
 
         private async Task<bool> IsTokenValid(LeadsDto lead)
         {

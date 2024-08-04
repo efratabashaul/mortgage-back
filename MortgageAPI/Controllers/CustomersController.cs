@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
+using Service.Services;
 using static Dropbox.Api.Files.ListRevisionsMode;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,10 +16,12 @@ namespace MortgageAPI.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly IService<CustomersDto> service;
-        
-        public CustomersController(IService<CustomersDto> service)
+        private readonly IService<LeadsDto> leadService;
+
+        public CustomersController(IService<CustomersDto> service, IService<LeadsDto> leadService)
         {
             this.service = service;
+            this.leadService = leadService;
         }
         
         [HttpGet]
@@ -49,27 +52,37 @@ namespace MortgageAPI.Controllers
             return customer.Id;
         }
 
-        //[HttpPost]
-        //public async Task Post([FromBody] CustomersDto customersDto)
-        //{
-        //    await service.AddAsync(customersDto);
-        //}
-
         [HttpPost]
         [Authorize(Policy = "AdminPolicy")]
 
         public async Task<IActionResult> AddItemAsync([FromBody] CustomersDto customersDto)
         {
-            Console.WriteLine("in post customer");
+
+            return await AddItemAsyncPrivate(customersDto);
+        }
+
+        private async Task<IActionResult> AddItemAsyncPrivate(CustomersDto customersDto)
+        {
             var addedObject = await service.AddAsync(customersDto);
             return Ok(addedObject);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task Put(int id,[FromBody] CustomersDto customersDto)
-        //{
-        //    await service.UpdateAsync(id,customersDto);
-        //}
+        [HttpPost("Lead{leadId}")]
+        public async Task<IActionResult> AddItemAsync([FromBody] CustomersDto customersDto, int leadId)
+        {
+            var leadsController = new LeadsController(leadService);
+            LeadsDto leadDto = await leadsController.Get(leadId);
+            if (leadDto != null)
+            {
+                if (leadDto.Expiration >= DateTime.Now)
+                {
+                    return await AddItemAsyncPrivate(customersDto);
+                }
+                return BadRequest("The lead has expired and cannot be used to add a new user.");
+            }
+
+            return NotFound("The lead does not exist.");
+        }
 
         [HttpPut("{id}")]
         [Authorize]
