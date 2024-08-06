@@ -64,7 +64,7 @@ namespace MortgageAPI.Controllers
             return NotFound("user not found");
         }
 
-        [HttpPost("token")]
+        [HttpPost("token")]s
         public async Task<ActionResult> GenerateAsync(UsersDto user)
         {
             int customerId = -1;
@@ -144,6 +144,7 @@ namespace MortgageAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] UsersDto usersDto)
         {
+            Console.WriteLine("ccjcjcj");
             var updatedObject = await service.UpdateItemAsync(id, usersDto);
             return Ok(updatedObject);
         }

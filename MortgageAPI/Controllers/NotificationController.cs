@@ -47,14 +47,29 @@ public class NotificationController : ControllerBase
             return Ok(addedObject);
         }
         [HttpPut("{id}")]
+
         [Authorize]
 
-        public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] NotificationDto customersDto)
+        public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] NotificationDto notificationsDto)
         {
-            Console.WriteLine("in put notifi"+customersDto.IsRead);
-            var updatedObject = await service.UpdateItemAsync(id, customersDto);
+            var updatedObject = await service.UpdateItemAsync(id, notificationsDto);
             return Ok(updatedObject);
         }
+
+        [HttpPut()]
+        public async Task<IActionResult> UpdateItemsToReadAsync( [FromBody] NotificationDto[] notificationsDto)
+        {
+            NotificationDto[] updatedStaus = [];
+            foreach(var item in notificationsDto)
+            {
+                Console.WriteLine(item.Message);
+                item.IsRead = true;
+                var updatedObject = await service.UpdateItemAsync(item.ID, item);
+                updatedStaus.Append(updatedObject);
+            }
+            return Ok(updatedStaus);
+        }
+
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "AdminPolicy")]
