@@ -103,7 +103,6 @@ namespace Service.Services
                 body= " ";
             int batchSize = 100; // size of the group according to the limitation of the server
             List<List<string>> batches = CreateBatches(recipients, batchSize);
-
             try
             {
                 foreach (var batch in batches)
@@ -139,11 +138,9 @@ namespace Service.Services
         {
             try
             {
-                    var message = new MimeMessage();
-                    message.From.Add(new MailboxAddress("Y.B Mortgages", _options.From));
-                    message.Subject = subject;
-                //var bodyBuilder = new BodyBuilder { TextBody = body };
-                //message.Body = bodyBuilder.ToMessageBody();
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Y.B Mortgages", _options.From));
+                message.Subject = subject;
                 message.Body = new TextPart("html")
                 {
                     Text = body

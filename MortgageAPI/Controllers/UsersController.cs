@@ -46,7 +46,6 @@ namespace MortgageAPI.Controllers
         {
             return this.service.Login(Email, Password);
         }
-
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] UsersDto user)
         {
@@ -76,12 +75,10 @@ namespace MortgageAPI.Controllers
                 if(customerId==-1)
                     return BadRequest("User not found.");
             }
-
-            //מפתח להצפנה
+            //key for encryption
             var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            //אלגוריתם להצפנה
+            //algorithm for encryption
             var credentials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
-
             var claims = new[] {
             new Claim(ClaimTypes.NameIdentifier,user.UserName)
             ,new Claim(ClaimTypes.Role, user.Role.ToString()),

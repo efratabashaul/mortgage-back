@@ -19,9 +19,9 @@ namespace MortgageAPI.Controllers
             this.service = service;
         }
         // GET: LeadsController/Details/5
+
         [HttpGet]
         [Authorize(Policy = "AdminPolicy")]
-
         public async Task<List<LeadsDto>> Get()
         {
             return await service.GetAllAsync();
@@ -58,8 +58,6 @@ namespace MortgageAPI.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-
-
         public async Task<IActionResult> UpdateItemAsync(int id, [FromBody] LeadsDto leadsDto)
         {
             var updatedObject = await service.UpdateItemAsync(id, leadsDto);

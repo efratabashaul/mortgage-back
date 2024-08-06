@@ -54,19 +54,15 @@ namespace MortgageAPI.Controllers
 
         [HttpPost]
         [Authorize(Policy = "AdminPolicy")]
-
         public async Task<IActionResult> AddItemAsync([FromBody] CustomersDto customersDto)
         {
-
             return await AddItemAsyncPrivate(customersDto);
         }
-
         private async Task<IActionResult> AddItemAsyncPrivate(CustomersDto customersDto)
         {
             var addedObject = await service.AddAsync(customersDto);
             return Ok(addedObject);
         }
-
         [HttpPost("Lead{leadId}")]
         public async Task<IActionResult> AddItemAsync([FromBody] CustomersDto customersDto, int leadId)
         {
