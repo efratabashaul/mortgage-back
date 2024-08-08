@@ -55,19 +55,21 @@ public class NotificationController : ControllerBase
             var updatedObject = await service.UpdateItemAsync(id, notificationsDto);
             return Ok(updatedObject);
         }
+
         [HttpPut()]
-        public async Task<IActionResult> UpdateItemsToReadAsync([FromBody] NotificationDto[] notificationsDto)
+        public async Task<IActionResult> UpdateItemsToReadAsync( [FromBody] NotificationDto[] notificationsDto)
         {
-            NotificationDto[] updated=[];
-            foreach (var item in notificationsDto)
+            NotificationDto[] updatedStaus = [];
+            foreach(var item in notificationsDto)
             {
                 Console.WriteLine(item.Message);
                 item.IsRead = true;
                 var updatedObject = await service.UpdateItemAsync(item.ID, item);
-                updated.Append(updatedObject);
+                updatedStaus.Append(updatedObject);
             }
-            return Ok(updated);
+            return Ok(updatedStaus);
         }
+
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "AdminPolicy")]
