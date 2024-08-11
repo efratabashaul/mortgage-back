@@ -64,7 +64,7 @@ namespace MortgageAPI.Controllers
             return NotFound("user not found");
         }
 
-        [HttpPost("token")]s
+        [HttpPost("token")]
         public async Task<ActionResult> GenerateAsync(UsersDto user)
         {
             int customerId = -1;
