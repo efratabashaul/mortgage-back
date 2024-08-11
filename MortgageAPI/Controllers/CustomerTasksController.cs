@@ -62,6 +62,31 @@ namespace MortgageAPI.Controllers
             return Ok(addedObject);
         }
 
+        [HttpPost("addDocuments")]
+        public async Task<IActionResult> AddItemsAsync([FromBody] CustomerTasksDto[] customerTasksDto)
+        {
+            if (customerTasksDto == null || !customerTasksDto.Any())
+            {
+                return BadRequest("No customer tasks provided");
+            }
+            try
+            {
+                foreach (var dto in customerTasksDto)
+                {
+                    if (dto == null)
+                    {
+                        return BadRequest("One or more of the customer tasks are invalid");
+                    }
+                    await service.AddAsync(dto);
+                }
+                return Ok(new { Message = $"Customer tasks successfully added: {customerTasksDto.Length}" });
+            }
+            catch
+            {
+                return StatusCode(500, "An error occurred while processing your request");
+            }
+        }
+
 
         //[HttpPut("{id}")]
         //public async Task Put(int id, [FromForm] CustomerTasksDto customerTasksDto)

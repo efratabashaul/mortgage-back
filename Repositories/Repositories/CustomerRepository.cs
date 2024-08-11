@@ -79,9 +79,9 @@ namespace Repositories.Repositories
             customer.Amount_of_loan_requested= entity.Amount_of_loan_requested; 
             customer.LastSynced= entity.LastSynced;
             customer.IsArchived= entity.IsArchived;
-            customer.created_at = entity.created_at;
+            customer.created_at = entity.created_at;//Pay attention to correctly initialize the data
             customer.updated_at =DateTime.Now;
-            await _context.save();
+            await _context.save();//Don't forget to save at the end
         }
 
         public async Task<Customers> UpdateItemAsync(int id, Customers entity)
