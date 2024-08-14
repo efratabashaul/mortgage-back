@@ -67,14 +67,14 @@ namespace MortgageAPI.Controllers
             return Ok(addedObject);
         }
 
-        [HttpPost("Lead{leadId}")]
+        [HttpPost("Lead/{leadId}")]
         public async Task<IActionResult> AddItemAsync([FromBody] CustomersDto customersDto, int leadId)
         {
             var leadsController = new LeadsController(leadService);
             LeadsDto leadDto = await leadsController.Get(leadId);
             if (leadDto != null)
             {
-                if (leadDto.Expiration >= DateTime.Now)
+               // if (leadDto.Expiration >= DateTime.Now)
                 {
                     return await AddItemAsyncPrivate(customersDto);
                 }

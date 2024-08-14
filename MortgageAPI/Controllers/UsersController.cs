@@ -120,15 +120,19 @@ namespace MortgageAPI.Controllers
             return await AddUserPrivate(usersDto);
         }
 
-        [HttpPost("Lead{leadId}")]
+        [HttpPost("Lead/{leadId}")]
         public async Task<IActionResult> AddItemAsync([FromBody] UsersDto usersDto, int leadId)
         {
             var leadsController = new LeadsController(leadService);
             LeadsDto leadDto = await leadsController.Get(leadId);
+            Console.WriteLine("in add leaddto="+leadDto.First_Name+"   id="+leadId);
+
             if (leadDto != null)
             {
-                if (leadDto.Expiration >= DateTime.Now)
+                Console.WriteLine("exp="+ leadDto.Expiration+" now="+ DateTime.Now);
+              //  if (leadDto.Expiration >= DateTime.Now)
                 {
+                    Console.WriteLine("not expiration");
                     return await AddUserPrivate(usersDto);
                 }
                 return BadRequest("The lead has expired and cannot be used to add a new user.");
@@ -140,6 +144,7 @@ namespace MortgageAPI.Controllers
         private async Task<IActionResult> AddUserPrivate(UsersDto usersDto)
         {
             var addedObject = await service.AddAsync(usersDto);
+            Console.WriteLine("update "+addedObject);
             return Ok(addedObject);
         }
 
