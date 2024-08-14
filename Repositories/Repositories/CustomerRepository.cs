@@ -87,6 +87,7 @@ namespace Repositories.Repositories
         public async Task<Customers> UpdateItemAsync(int id, Customers entity)
         {
             var customer = await GetAsync(id);
+            customer.Customer_type = entity.Customer_type;
             customer.Lead_id = entity.Lead_id;
             customer.Last_Name = entity.Last_Name;
             customer.UserId = entity.UserId;
