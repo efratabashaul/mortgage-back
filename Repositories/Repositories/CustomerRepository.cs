@@ -106,6 +106,7 @@ namespace Repositories.Repositories
             customer.Avarage_monthly_salary = entity.Avarage_monthly_salary;
             customer.Years_in_current_position = entity.Years_in_current_position;
             customer.Income_rent = entity.Income_rent;
+            customer.Customer_type = entity.Customer_type;
             customer.Income_Government_Endorsement = entity.Income_Government_Endorsement;
             customer.Income_other = entity.Income_other;
             customer.Property_city = entity.Property_city;
